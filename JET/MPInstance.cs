@@ -1,4 +1,5 @@
-﻿using UnityEngine.Networking;
+﻿using System.Collections.Concurrent;
+using UnityEngine.Networking;
 
 namespace JET
 {
@@ -13,7 +14,7 @@ namespace JET
         public bool RaidStarted { get; private set; }
         public bool WorldSpawned { get; private set; }
 
-        //public readonly ConcurrentDictionary<int, EFT.NetworkGameSession> GameSessions = new ConcurrentDictionary<int, EFT.NetworkGameSession>();
+        public readonly ConcurrentDictionary<int, EFT.NetworkGameSession> GameSessions = new ConcurrentDictionary<int, EFT.NetworkGameSession>();
         //public readonly ConcurrentDictionary<int, ServerPlayer> NetworkClients = new ConcurrentDictionary<int, ServerPlayer>();
 
         public void FixedUpdate()
