@@ -1,0 +1,1 @@
+de4dot.exe --un-name "!^<>[a-z0-9]$&!^<>[a-z0-9]__.*$&![A-Z][A-Z]\$<>.*$&^[a-zA-Z_<{$][a-zA-Z_0-9<>{}$.`-]*$" "\EscapeFromTarkov_Data\Managed\Assembly-CSharp2.dll" --strtyp delegate --strtok 0600C93A

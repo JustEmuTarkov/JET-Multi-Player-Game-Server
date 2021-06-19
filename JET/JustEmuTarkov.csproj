@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AC9ADC41-6007-4392-9D52-2BD850506052}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>JET</RootNamespace>
+    <AssemblyName>NLog.JET</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>..\Shared\References\0Harmony.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\Shared\References\Assembly-CSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="bsg.componentace.compression.libs.zlib">
+      <HintPath>..\Shared\References\bsg.componentace.compression.libs.zlib.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Comfort">
+      <HintPath>..\Shared\References\Comfort.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ItemComponent.Types">
+      <HintPath>..\Shared\References\ItemComponent.Types.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Shared\References\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\Shared\References\NLog.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\Shared\References\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <HintPath>..\Shared\References\UnityEngine.AssetBundleModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\Shared\References\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>..\Shared\References\UnityEngine.ImageConversionModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\Shared\References\UnityEngine.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
+      <HintPath>..\Shared\References\UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule">
+      <HintPath>..\Shared\References\UnityEngine.UnityWebRequestModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestTextureModule">
+      <HintPath>..\Shared\References\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Hook\Target.cs" />
+    <Compile Include="Instance.cs" />
+    <Compile Include="Patches\Core\BattleEyePatch.cs" />
+    <Compile Include="Patches\Bots\BossSpawnChancePatch.cs" />
+    <Compile Include="Patches\Bots\BotDifficultyPatch.cs" />
+    <Compile Include="Patches\Bots\BotTemplateLimitPatch.cs" />
+    <Compile Include="Patches\Bots\CoreDifficultyPatch.cs" />
+    <Compile Include="Patches\Bots\GetNewBotTemplatesPatch.cs" />
+    <Compile Include="Patches\Bots\RemoveUsedBotProfilePatch.cs" />
+    <Compile Include="Patches\Bots\SpawnPmcPatch.cs" />
+    <Compile Include="Patches\Bundles\BundleLoadPatch.cs" />
+    <Compile Include="Patches\Bundles\EasyAssetsPatch.cs" />
+    <Compile Include="Patches\Bundles\EasyBundlePatch.cs" />
+    <Compile Include="Patches\Core\StreamerModePatch.cs" />
+    <Compile Include="Patches\Core\UnlockItemsIdLength.cs" />
+    <Compile Include="Patches\Healing\MainMenuControllerPatch.cs" />
+    <Compile Include="Patches\Healing\PlayerPatch.cs" />
+    <Compile Include="Patches\Matchmaker\InsuranceScreenPatch.cs" />
+    <Compile Include="Patches\Matchmaker\MatchMakerAfterSelectLocation.cs" />
+    <Compile Include="Patches\Matchmaker\MatchmakerOfflineRaidPatch.cs" />
+    <Compile Include="Patches\Matchmaker\MatchMakerSelectionLocationScreenPatch.cs" />
+    <Compile Include="Patches\Core\NotificationSslPatch.cs" />
+    <Compile Include="Patches\Progression\EndByTimerPatch.cs" />
+    <Compile Include="Patches\Progression\ExperienceGainPatch.cs" />
+    <Compile Include="Patches\Progression\OfflineLootPatch.cs" />
+    <Compile Include="Patches\Progression\OfflineSavePatch.cs" />
+    <Compile Include="Patches\Progression\OfflineSpawnPointPatch.cs" />
+    <Compile Include="Patches\Progression\SingleModeJamPatch.cs" />
+    <Compile Include="Patches\Progression\WeaponDurabilityPatch.cs" />
+    <Compile Include="Patches\Quests\BeaconPatch.cs" />
+    <Compile Include="Patches\Quests\DogtagPatch.cs" />
+    <Compile Include="Patches\Ragfair\RemoveAddOfferButton.cs" />
+    <Compile Include="Patches\RaidFix\BotStationaryWeaponPatch.cs" />
+    <Compile Include="Patches\RaidFix\OnDeadPatch.cs" />
+    <Compile Include="Patches\RaidFix\OnShellEjectEventPatch.cs" />
+    <Compile Include="Patches\RaidFix\SpawnRandomizationPatch.cs" />
+    <Compile Include="Patches\ScavMode\LoadOfflineRaidScreenPatch.cs" />
+    <Compile Include="Patches\ScavMode\ScavExfilPatch.cs" />
+    <Compile Include="Patches\ScavMode\ScavPrefabLoadPatch.cs" />
+    <Compile Include="Patches\ScavMode\ScavProfileLoadPatch.cs" />
+    <Compile Include="Patches\ScavMode\ScavSpawnPointPatch.cs" />
+    <Compile Include="Patches\Core\SslCertificatePatch.cs" />
+    <Compile Include="Patches\Core\UnityWebRequestPatch.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\App\Json.cs" />
+    <Compile Include="Utilities\App\Logger.cs" />
+    <Compile Include="Utilities\App\ProcessMonitor.cs" />
+    <Compile Include="Utilities\Config.cs" />
+    <Compile Include="Utilities\DefaultSettings\DefaultRaidSettings.cs" />
+    <Compile Include="Utilities\EasyBundleHelper.cs" />
+    <Compile Include="Utilities\Hook\Loader.cs" />
+    <Compile Include="Utilities\HTTP\Request.cs" />
+    <Compile Include="Utilities\Offline.cs" />
+    <Compile Include="Utilities\Patching\AbstractPatch.cs" />
+    <Compile Include="Utilities\Patching\GenericPatch.cs" />
+    <Compile Include="Utilities\Patching\PatcherConstants.cs" />
+    <Compile Include="Utilities\Patching\PatcherUtil.cs" />
+    <Compile Include="Utilities\PatchLogger.cs" />
+    <Compile Include="Utilities\Player\HealthListener.cs" />
+    <Compile Include="Utilities\Player\PlayerHealth.cs" />
+    <Compile Include="Utilities\Player\SaveLootUtil.cs" />
+    <Compile Include="Utilities\Reflection\ClientAppUtils.cs" />
+    <Compile Include="Utilities\Reflection\CodeWrapper\Code.cs" />
+    <Compile Include="Utilities\Reflection\CodeWrapper\CodeGenerator.cs" />
+    <Compile Include="Utilities\Reflection\CodeWrapper\CodeWithLabel.cs" />
+    <Compile Include="Utilities\Reflection\LocalGameUtils.cs" />
+    <Compile Include="Utilities\Reflection\PrivateMethodAccessor.cs" />
+    <Compile Include="Utilities\Reflection\PrivateValueAccessor.cs" />
+    <Compile Include="Utilities\Settings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CodeMap.dgml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent Condition="'$(OS)' != 'Unix'">
+      xcopy /Y /I $(TargetDir)*.dll $(SolutionDir)\Build\EscapeFromTarkov_Data\Managed\
+    </PostBuildEvent>
+    <PostBuildEvent Condition="'$(OS)' == 'Unix'">
+      cp $(TargetDir)*.dll $(SolutionDir)/Build/EscapeFromTarkov_Data/Managed/
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /Y /I "$(TargetDir)NLog.JET.dll" "$(SolutionDir)\Build\EscapeFromTarkov_Data\Managed\"
+xcopy /Y /I "$(SolutionDir)Shared\Resources\NLog.dll.nlog" "$(SolutionDir)\Build\EscapeFromTarkov_Data\Managed\"
+xcopy /Y /I "$(SolutionDir)Shared\References\0Harmony.dll" "$(SolutionDir)\Build\EscapeFromTarkov_Data\Managed\"
+xcopy /Y /I "$(SolutionDir)Shared\References\Assembly-CSharp.dll" "$(SolutionDir)\Build\EscapeFromTarkov_Data\Managed\"
+</PostBuildEvent>
+  </PropertyGroup>
+</Project>

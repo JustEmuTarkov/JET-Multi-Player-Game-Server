@@ -1,0 +1,27 @@
+<project outputDir="E:\MAOCI\Github\JET-Binaries\Build\EscapeFromTarkov_Data\Managed\Confused" baseDir="E:\MAOCI\Github\JET-Binaries\Build\EscapeFromTarkov_Data\Managed" xmlns="http://confuser.codeplex.com">
+  <module path="NLog.JET.dll">
+    <rule pattern="true" preset="normal" inherit="false">
+      <protection id="anti ildasm" />
+      <protection id="anti tamper" />
+      <protection id="constants" />
+      <protection id="ctrl flow" />
+      <protection id="anti dump" />
+      <protection id="anti debug" />
+      <protection id="Const disint" />
+      <protection id="invalid metadata" action="remove" />
+      <protection id="Junk" />
+      <protection id="lcltofield" />
+      <protection id="module flood" />
+      <protection id="Rename Module" action="remove" />
+      <protection id="packer" action="remove" />
+      <protection id="ref proxy" />
+      <protection id="dynamic resources" action="remove" />
+      <protection id="resources" action="remove" />
+      <protection id="lcltofieldv2" action="remove" />
+      <protection id="stack underflow" action="remove" />
+      <protection id="typescramble" action="remove" />
+      <protection id="memory protection" action="remove" />
+      <protection id="rename" />
+    </rule>
+  </module>
+</project>

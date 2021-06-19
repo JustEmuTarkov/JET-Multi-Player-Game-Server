@@ -1,0 +1,27 @@
+<project outputDir="E:\MAOCI\Github\JET-Binaries\Build\Confused" baseDir="E:\MAOCI\Github\JET-Binaries\Build" xmlns="http://confuser.codeplex.com">
+  <module path="JET Launcher.exe">
+    <rule pattern="true" preset="normal" inherit="false">
+      <protection id="rename" />
+      <protection id="ctrl flow" />
+      <protection id="anti dump" />
+      <protection id="anti tamper" />
+      <protection id="anti ildasm" />
+      <protection id="constants" />
+      <protection id="anti debug" />
+      <protection id="Const disint" />
+      <protection id="invalid metadata" action="remove" />
+      <protection id="Junk" />
+      <protection id="lcltofield" />
+      <protection id="module flood" />
+      <protection id="Rename Module" action="remove" />
+      <protection id="packer" action="remove" />
+      <protection id="ref proxy" />
+      <protection id="dynamic resources" />
+      <protection id="resources" />
+      <protection id="lcltofieldv2" action="remove" />
+      <protection id="stack underflow" action="remove" />
+      <protection id="typescramble" action="remove" />
+      <protection id="memory protection" action="remove" />
+    </rule>
+  </module>
+</project>

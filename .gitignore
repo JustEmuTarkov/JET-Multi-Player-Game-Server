@@ -1,0 +1,48 @@
+## Git ignore for retards ;)
+packages
+JET.Launcher/obj
+JET.Launcher/obj/Debug
+JET.Launcher/obj/Relese
+JET.Launcher/obj/Debug/TempPE/
+JET.Launcher/bin
+JET.Launcher/bin/release
+JET.Launcher/bin/debug
+JET/obj
+JET/obj/Debug
+JET/obj/Relese
+JET/obj/Debug/TempPE/
+JET/bin
+JET/bin/release
+JET/bin/debug
+*.log
+*.7z
+Build/EscapeFromTarkov_Data/Managed
+JET.SinglePlayer/obj/
+*.cache
+JET/obj/
+*.suo
+
+## Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+## Visual Studio 2015/2017 cache/options directory
+.vs/
+## JetBrains cache directory
+.idea/
+
+## Visual Studio 2017 auto generated files
+Generated\ Files/
+JET/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
