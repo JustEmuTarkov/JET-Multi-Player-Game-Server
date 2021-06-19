@@ -31,7 +31,18 @@ namespace JET
 
         public void FixedUpdate()
         {
-            
+            ulong currentIndex = LocalIndex;
+            LocalIndex = currentIndex + 1UL;
+            LocalTime += Time.deltaTime;
+
+            if (!RaidStarted && LocalGameUtils.IsGameStarted())
+            {
+                Console.WriteLine("ServerInstance.FixedUpdate: starting MP server");
+                RaidStarted = true;
+
+                string locationId = "factory4_day";
+                LocalGameUtils.StartOfflineRaid(locationId);
+            }
         }
     }
 }
