@@ -40,7 +40,7 @@ namespace JET
             PatcherUtil.Patch<BundleLoadPatch>();
             Debug.LogError("RuntimeBundles: Loaded");
 
-            OfflineModePatchRoutes(Offline.LoadModules());
+            //OfflineModePatchRoutes(Offline.LoadModules());
 
 
             WatermarkOverrider();
