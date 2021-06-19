@@ -79,6 +79,9 @@
       <HintPath>..\Shared\References\UnityEngine.ImageConversionModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.Networking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\Shared\References\UnityEngine.Networking.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>..\Shared\References\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
@@ -99,7 +102,7 @@
   <ItemGroup>
     <Compile Include="Hook\Target.cs" />
     <Compile Include="Instance.cs" />
-    <Compile Include="MpInstance.cs" />
+    <Compile Include="MPInstance.cs" />
     <Compile Include="Patches\Core\BattleEyePatch.cs" />
     <Compile Include="Patches\Bots\BossSpawnChancePatch.cs" />
     <Compile Include="Patches\Bots\BotDifficultyPatch.cs" />
