@@ -46,3 +46,6 @@ bld/
 ## Visual Studio 2017 auto generated files
 Generated\ Files/
 JET/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
+
+## Build directory
+.Build/
