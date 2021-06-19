@@ -34,5 +34,7 @@ namespace JET.Server.Messages
             writer.Write(LocationId);
             base.Serialize(writer);
         }
+
+        public const short MessageID = 147;
     }
 }
