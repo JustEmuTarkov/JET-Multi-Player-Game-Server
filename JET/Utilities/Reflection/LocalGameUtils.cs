@@ -43,7 +43,7 @@ namespace JET.Utilities.Reflection
         }
 
 
-        public static bool IsRaidStarted()
+        public static bool IsGameStarted()
         {
             var app = ClientAppUtils.GetMainApp();
 
