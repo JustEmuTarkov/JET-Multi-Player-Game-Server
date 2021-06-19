@@ -64,5 +64,14 @@ namespace JET
                 ServerHandlers.RegisterServerHandlers();
             }
         }
+
+        public static int GetNextChannelId()
+        {
+            var id = ++NextChannelId;
+            NextChannelId = (id % 2 == 0) ? ++id : id;
+
+            Console.Write($"ServerInstance.GetNextChannelId: the new chanel Id is {id}");
+            return id;
+        }
     }
 }
