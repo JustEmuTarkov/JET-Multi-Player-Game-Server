@@ -44,6 +44,8 @@ namespace JET
 
 
             WatermarkOverrider();
+            
+            gameObject.AddComponent<MpInstance>();
         }
         EFT.UI.LocalizedText localizedText;
         private void LateUpdate() {
