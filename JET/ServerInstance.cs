@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using Comfort.Common;
+using JET.Server.Connection;
+using JET.Server.Handlers;
 using JET.Utilities.Reflection;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -42,6 +44,24 @@ namespace JET
 
                 string locationId = "factory4_day";
                 LocalGameUtils.StartOfflineRaid(locationId);
+            }
+
+            if (WorldSpawned)
+                return;
+
+            if (!NetworkServer.active)
+            {
+                var started = StartServer(Config.GetConfiguration(), 20);
+                if (!started)
+                {
+                    Console.WriteLine(
+                        "ServerInstance.FixedUpdate: error occurred while starting UDP server on port " + Port);
+                    return;
+                }
+
+                Console.WriteLine(
+                    "ServerInstance.FixedUpdate: UDP server started on port " + Port);
+                ServerHandlers.RegisterServerHandlers();
             }
         }
     }
