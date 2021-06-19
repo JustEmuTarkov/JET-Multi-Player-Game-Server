@@ -59,6 +59,9 @@
       <HintPath>..\Shared\References\NLog.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Sirenix.Serialization, Version=2.1.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\Shared\References\Sirenix.Serialization.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="UnityEngine">
       <HintPath>..\Shared\References\UnityEngine.dll</HintPath>
