@@ -153,6 +153,8 @@
     <Compile Include="Server\Handlers\ServerHandlers.cs" />
     <Compile Include="Server\Messages\AuthRequestMessage.cs" />
     <Compile Include="Server\Messages\PlayerSpawnMessage.cs" />
+    <Compile Include="Server\Player\PlayerHealthController.cs" />
+    <Compile Include="Server\Trash\PlayerSpawnMessageTrash.cs" />
     <Compile Include="Utilities\App\Json.cs" />
     <Compile Include="Utilities\App\Logger.cs" />
     <Compile Include="Utilities\App\ProcessMonitor.cs" />
