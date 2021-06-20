@@ -1,7 +1,9 @@
-﻿using Comfort.Common;
+﻿using System.Linq;
+using Comfort.Common;
 using EFT;
 using JET.Server.Messages;
 using JET.Server.Player;
+using JET.Server.Utils;
 using JET.Utilities;
 using JET.Utilities.HTTP;
 using UnityEngine.Networking;
@@ -27,8 +29,24 @@ namespace JET.Server.Handlers
 
             player.channelIndex = (byte) channelId;
             server.NetworkClients.TryAdd(message.conn.connectionId, player);
+
+            var playerPrefabs = profiles[0].GetAllInventoryPrefabs();
+            server.AllPrefabs.AddRange(playerPrefabs);
+
+            var customizationIds = player.Profile.Customization.Select(pair => pair.Value);
+            var msg = new LoadBundlesMessage()
+            {
+                Prefabs = playerPrefabs.ToArray(),
+                //CustomizationIds = customizationIds.ToArray(),
+                ID = 5000
+            };
             
-            
+            foreach (var gameSession in server.GameSessions.Values)
+            {
+                if (gameSession.connection.connectionId == message.conn.connectionId) continue;
+                gameSession.BundlesQueue.Enqueue(msg);
+            }
+
         }
     }
 }

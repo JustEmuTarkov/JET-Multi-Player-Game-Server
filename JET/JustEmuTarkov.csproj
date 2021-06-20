@@ -158,6 +158,9 @@
     <Compile Include="Server\Player\PlayerInventoryController.cs" />
     <Compile Include="Server\Player\ServerPlayer.cs" />
     <Compile Include="Server\Player\PlayerHealthController.cs" />
+    <Compile Include="Server\Session\AbstractGameSession.cs" />
+    <Compile Include="Server\Session\AbstractSession.cs" />
+    <Compile Include="Server\Session\PlayerSession.cs" />
     <Compile Include="Server\Trash\PlayerSpawnMessageTrash.cs" />
     <Compile Include="Server\Utils\Extensions.cs" />
     <Compile Include="Utilities\App\Json.cs" />
