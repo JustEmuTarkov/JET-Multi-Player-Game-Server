@@ -5,8 +5,7 @@ namespace JET.Server.Player
 {
     public class PlayerHealthController : GClass1438
     {
-        public PlayerHealthController(Profile.GClass1127 profileHealth, GClass1731 inventory, GClass1143 skills) : base(
-            profileHealth, inventory, skills)
+        public PlayerHealthController(Profile.GClass1127 profileHealth, GClass1731 inventory, GClass1143 skills) : base(profileHealth, inventory, skills)
         {
             
         }

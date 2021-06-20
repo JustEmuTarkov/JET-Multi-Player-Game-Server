@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using Comfort.Common;
 using JET.Server.Connection;
 using JET.Server.Handlers;
+using JET.Server.Player;
 using JET.Utilities.Reflection;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -20,9 +21,8 @@ namespace JET
         public bool RaidStarted { get; private set; }
         public bool WorldSpawned { get; private set; }
 
-        public readonly ConcurrentDictionary<int, EFT.NetworkGameSession> GameSessions =
-            new ConcurrentDictionary<int, EFT.NetworkGameSession>();
-        //public readonly ConcurrentDictionary<int, ServerPlayer> NetworkClients = new ConcurrentDictionary<int, ServerPlayer>();
+        public readonly ConcurrentDictionary<int, EFT.NetworkGameSession> GameSessions = new ConcurrentDictionary<int, EFT.NetworkGameSession>();
+        public readonly ConcurrentDictionary<int, ServerPlayer> NetworkClients = new ConcurrentDictionary<int, ServerPlayer>();
 
         public void Start()
         {

@@ -2,6 +2,7 @@
 using System.IO;
 using ComponentAce.Compression.Libs.zlib;
 using EFT;
+using EFT.InventoryLogic;
 using JET.Server.Player;
 using JET.Server.Trash;
 using UnityEngine;
@@ -13,13 +14,13 @@ namespace JET.Server.Messages
 {
     public class PlayerSpawnMessage : MessageBase
     {
-        public int Id = -1;
+        public int PlayerID = -1;
         public byte ChannelId = Byte.MinValue;
-        public Vector3 Position1 = Vector3.negativeInfinity;
+        public Vector3 Position = new Vector3(57.9f, 0.06f, 21.998f);
         public byte ChannelIndex = Byte.MinValue;
         public bool IsAlive = false;
-        public Vector3 Position2 = Vector3.negativeInfinity;
-        public Quaternion Rotation = Quaternion.identity;
+        public Vector3 SpawnPosition = new Vector3(57.9f, 0.1f, 22.0f);
+        public Quaternion Rotation = new Quaternion(0.0f, 0.5f, 0.0f, 0.9f);
         public bool IsInPronePose = false;
         public float PoseLevel = Single.NaN;
         public GClass1715 Inventory = new GClass1715();
@@ -38,12 +39,12 @@ namespace JET.Server.Messages
 
         public override void Serialize(NetworkWriter writer)
         {
-            writer.Write(Id);
+            writer.Write(PlayerID);
             writer.Write(ChannelId);
-            writer.Write(Position1);
+            writer.Write(Position);
             writer.Write(ChannelIndex);
             writer.Write(IsAlive);
-            writer.Write(Position2);
+            writer.Write(SpawnPosition);
             writer.Write(Rotation);
             writer.Write(IsInPronePose);
             writer.Write(PoseLevel);
@@ -62,6 +63,9 @@ namespace JET.Server.Messages
             // write profile data
             byte[] profileData = SimpleZlib.CompressToBytes(PlayerProfile.ToJson(), 9);
             writer.WriteBytesAndSize(profileData, profileData.Length);
+
+            // write searchable info
+            writer.SerializeSearchableInfo(PlayerProfile.Inventory.AllPlayerItems);
 
             writer.Write(IdGeneratorId);
 
@@ -85,8 +89,8 @@ namespace JET.Server.Messages
                         break;
                     case EController.Firearm:
                         writer.Write(IsInSpawnOperation);
-                        MisFireInfo.Serialize(writer);
-                        JamInfo.Serialize(writer);
+                        MisFireInfo.SerializeSetupInfo(writer);
+                        JamInfo.SerializeSetupInfo(writer);
                         writer.Write(IsStationaryWeapon);
 
                         writer.Write(ItemId);
@@ -120,6 +124,20 @@ namespace JET.Server.Messages
             }
 
             base.Serialize(writer);
+        }
+
+        public static PlayerSpawnMessage FromProfile(int channelId, Profile profile)
+        {
+            var spawnMessage = new PlayerSpawnMessage
+            {
+                ChannelId = (byte) channelId, PlayerID = channelId, ChannelIndex = (byte) channelId,
+                PlayerProfile = profile.Clone()
+            };
+
+            spawnMessage.PlayerProfile.Inventory = default;
+            spawnMessage.Inventory = profile.Inventory;
+
+            return spawnMessage;
         }
 
         public const short MessageID = 155;
