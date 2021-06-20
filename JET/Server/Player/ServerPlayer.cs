@@ -13,8 +13,8 @@ namespace JET.Server.Player
     public class ServerPlayer : ObservedPlayer
     {
         public GStruct143 CurrentPacket = new GStruct143();
-        private MethodInfo _triggerColliderOnEnterInfo;
-        private MethodInfo _triggerColliderOnExitInfo;
+        public override byte ChannelIndex => channelIndex;
+        public byte channelIndex;
 
         public static ServerPlayer Create(int playerId, Vector3 position, GInterface62 frameIndexer)
         {
@@ -88,17 +88,20 @@ namespace JET.Server.Player
             PlacingBeacon = false;
             AggressorFound = false;
             _animators[0].enabled = true;
-            
+
             if (GClass333.Config.UseSpiritPlayer)
             {
-                this.Spirit.ConnectToPlayerEvents();
+                Spirit.ConnectToPlayerEvents();
             }
-            
+
             _handsController = EmptyHandsController.smethod_5<ObservedEmptyHandsController>(this);
             _handsController.Spawn(1f, () => { });
         }
 
         // private methods, fields, reflections
+        private MethodInfo _triggerColliderOnEnterInfo;
+        private MethodInfo _triggerColliderOnExitInfo;
+
         private void ColliderSearcherOnEnter(GInterface17 trigger)
         {
             try

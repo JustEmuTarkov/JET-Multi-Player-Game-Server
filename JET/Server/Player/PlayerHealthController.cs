@@ -1,4 +1,5 @@
-﻿using EFT;
+﻿using System;
+using EFT;
 using EFT.InventoryLogic;
 
 namespace JET.Server.Player
@@ -7,22 +8,18 @@ namespace JET.Server.Player
     {
         public PlayerHealthController(Profile.GClass1127 profileHealth, GClass1731 inventory, GClass1143 skills) : base(profileHealth, inventory, skills)
         {
-            
         }
 
         public override void ApplyItem(Item item, EBodyPart bodyPart, float? amount = null)
         {
-            throw new System.NotImplementedException();
+            Console.WriteLine("JET.Server.Player.PlayerHealthController.PlayerHealthController.ApplyItem: not implemented");
         }
 
         public override void CancelApplyingItem()
         {
-            throw new System.NotImplementedException();
+            Console.WriteLine("JET.Server.Player.PlayerHealthController.PlayerHealthController.CancelApplyingItem: not implemented");
         }
 
-        protected override bool _sendNetworkSyncPackets
-        {
-            get { return true; }
-        }
+        protected override bool _sendNetworkSyncPackets => true;
     }
 }

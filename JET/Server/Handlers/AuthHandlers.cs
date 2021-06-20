@@ -12,7 +12,7 @@ namespace JET.Server.Handlers
 {
     public class AuthHandlers
     {
-        public static void OnAuthMessage(NetworkMessage message)
+        public static async void OnAuthMessage(NetworkMessage message)
         {
             var authRequest = message.ReadMessage<AuthRequestMessage>();
             var server = Singleton<ServerInstance>.Instance;
@@ -23,6 +23,12 @@ namespace JET.Server.Handlers
             var spawnMessage = PlayerSpawnMessage.FromProfile(channelId, profiles[0]);
 
             var player = ServerPlayer.Create(spawnMessage.PlayerID, spawnMessage.Position, Singleton<ServerInstance>.Instance);
+            await player.Init(profiles[0]);
+
+            player.channelIndex = (byte) channelId;
+            server.NetworkClients.TryAdd(message.conn.connectionId, player);
+            
+            
         }
     }
 }
