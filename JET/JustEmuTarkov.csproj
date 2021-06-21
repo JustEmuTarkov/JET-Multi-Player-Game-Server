@@ -155,6 +155,8 @@
     <Compile Include="Server\Messages\AuthResponseMessage.cs" />
     <Compile Include="Server\Messages\LoadBundlesMessage.cs" />
     <Compile Include="Server\Messages\PlayerSpawnMessage.cs" />
+    <Compile Include="Server\Messages\SubWorldSpawnMessage.cs" />
+    <Compile Include="Server\Messages\WorldSpawnMessage.cs" />
     <Compile Include="Server\Player\StatisticsManager.cs" />
     <Compile Include="Server\Player\PlayerInventoryController.cs" />
     <Compile Include="Server\Player\ServerPlayer.cs" />

@@ -18,7 +18,10 @@ namespace JET
     public class ServerInstance : NetworkManager, GInterface62
     {
         public static int NextChannelId = 5;
+
         public const int Port = 5000;
+        const int MaxConnections = 20;
+        public const int MaxPlayersOnMap = 200;
         public GClass1345[] weatherNodes = GClass1345.GetRandomTestWeatherNodes();
 
         public ulong LocalIndex { get; set; }

@@ -15,6 +15,7 @@ namespace JET.Server.Player
         public GStruct143 CurrentPacket = new GStruct143();
         public override byte ChannelIndex => channelIndex;
         public byte channelIndex;
+        public GClass1731 InventoryController => _inventoryController;
 
         public static ServerPlayer Create(int playerId, Vector3 position, GInterface62 frameIndexer)
         {
