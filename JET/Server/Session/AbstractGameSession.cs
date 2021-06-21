@@ -12,6 +12,17 @@ namespace JET.Server.Session
     [SuppressMessage("ReSharper", "IdentifierTypo")]
     public abstract class AbstractGameSession : AbstractSession
     {
+        public bool gameSyncTimeIsSent;
+        public bool worldMessageIsSent;
+        public bool subWorldMessageIsSent;
+        public bool playerSpawnIsSent;
+        public bool gameSpawnedIsSent;
+        public bool allPlayersSpawned;
+        public bool gameStartingIsSent;
+        public bool gameStartedIsSent;
+        public bool playerIsSpawned;
+        public bool sessionIsSpawned;
+
         protected static T smethod_1<T>(Transform parent, string name, string profileId, string token) where T : AbstractGameSession
         {
             var t = smethod_0<T>(parent, name, profileId, token);
