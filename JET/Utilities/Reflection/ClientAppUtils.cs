@@ -27,5 +27,11 @@ namespace JET.Utilities.Reflection
             Application.SetStackTraceLogType(LogType.Warning, StackTraceLogType.Full);
             Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.Full);
         }
+
+        public static GClass938 GetGameLocalTime()
+        {
+            var app = GetMainApp();
+            return PrivateValueAccessor.GetPrivateFieldValue(app.GetType(), "_localGameDateTime", app) as GClass938;
+        }
     }
 }
