@@ -26,6 +26,7 @@ namespace JET.Server.Messages
             base.Serialize(writer);
         }
 
+        public const int SelfBundleID = 5000;
         public const short MessageID = 188;
     }
 }

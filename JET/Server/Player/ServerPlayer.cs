@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Comfort.Common;
 using EFT;
 using JET.Server.Messages;
+using JET.Server.Session;
 using JET.Utilities.Reflection;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ namespace JET.Server.Player
     public class ServerPlayer : ObservedPlayer
     {
         public GStruct143 CurrentPacket = new GStruct143();
+        public PlayerSession Session;
         public override byte ChannelIndex => channelIndex;
         public byte channelIndex;
         public GClass1731 InventoryController => _inventoryController;

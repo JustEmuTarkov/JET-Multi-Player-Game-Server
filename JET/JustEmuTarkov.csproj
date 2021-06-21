@@ -150,10 +150,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\Connection\Config.cs" />
     <Compile Include="Server\Handlers\AuthHandlers.cs" />
+    <Compile Include="Server\Handlers\BundlesLoadHandler.cs" />
+    <Compile Include="Server\Handlers\SceneReadyHandler.cs" />
     <Compile Include="Server\Handlers\ServerHandlers.cs" />
     <Compile Include="Server\Messages\AuthRequestMessage.cs" />
     <Compile Include="Server\Messages\AuthResponseMessage.cs" />
     <Compile Include="Server\Messages\LoadBundlesMessage.cs" />
+    <Compile Include="Server\Messages\LoadBundlesStatusMessage.cs" />
     <Compile Include="Server\Messages\PlayerSpawnMessage.cs" />
     <Compile Include="Server\Messages\SubWorldSpawnMessage.cs" />
     <Compile Include="Server\Messages\WorldSpawnMessage.cs" />

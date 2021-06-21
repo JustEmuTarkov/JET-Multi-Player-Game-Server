@@ -9,11 +9,13 @@ namespace JET.Server.Handlers
     {
         public static void RegisterServerHandlers()
         {
+            NetworkServer.RegisterHandler(AuthRequestMessage.MessageID, AuthHandlers.OnAuthMessage);
+            NetworkServer.RegisterHandler(LoadBundlesStatusMessage.MessageID, BundlesLoadHandler.OnReportProgressLoading);
         }
 
-        private static void RegisterAuthHandler()
+        public static void OnSceneReady(NetworkConnection conn)
         {
-            NetworkServer.RegisterHandler(AuthRequestMessage.MessageID, AuthHandlers.OnAuthMessage);
+            SceneReadyHandler.OnSceneReady(conn);
         }
     }
 }

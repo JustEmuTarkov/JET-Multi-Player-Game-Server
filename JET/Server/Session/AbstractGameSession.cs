@@ -23,7 +23,7 @@ namespace JET.Server.Session
         public bool playerIsSpawned;
         public bool sessionIsSpawned;
 
-        protected static T smethod_1<T>(Transform parent, string name, string profileId, string token) where T : AbstractGameSession
+        public static T Create<T>(Transform parent, string name, string profileId, string token) where T : AbstractGameSession
         {
             var t = smethod_0<T>(parent, name, profileId, token);
             t.GetComponent<NetworkIdentity>().localPlayerAuthority = true;

@@ -20,7 +20,7 @@ namespace JET.Server.Session
             set => _memberCategory = value;
         }
 
-        internal static NetworkHash128 NetworkHash128_0 => NetworkHash128.Parse("d");
+        internal static NetworkHash128 AuthorityHash => NetworkHash128.Parse("d");
 
         public NetworkConnection Connection
         {
