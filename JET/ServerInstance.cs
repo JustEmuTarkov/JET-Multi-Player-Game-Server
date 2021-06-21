@@ -58,6 +58,12 @@ namespace JET
             if (WorldSpawned)
                 return;
 
+            var gameWorld = Singleton<GameWorld>.Instance;
+            if (gameWorld == null || gameWorld.AllLoot.Count <= 0)
+                return;
+
+            WorldSpawned = true;
+
             if (!NetworkServer.active)
             {
                 var started = StartServer(Config.GetConfiguration(), 20);
@@ -73,9 +79,17 @@ namespace JET
                 ServerHandlers.RegisterServerHandlers();
             }
 
+            var game = LocalGameUtils.GetLocalGame();
+            if (game == null)
+                return;
+
             var levelPhysicsSettings = GClass494.GetAllComponentsOfType<LevelPhysicsSettings>(false);
             Console.WriteLine($"LevelPhysicsSettings count: {levelPhysicsSettings.Count}");
             GClass862.SetupPositionQuantizer(levelPhysicsSettings.ToArray()[0].GetGlobalBounds());
+
+            //game.PlayerOwner.Player.GClass1652_0.SetExamined(true); // !!!!
+            game.BotsController.DestroyInfo(game.PlayerOwner.Player);
+            Singleton<GameWorld>.Instance.UnregisterPlayer(game.PlayerOwner.Player);
         }
 
         public static int GetNextChannelId()
