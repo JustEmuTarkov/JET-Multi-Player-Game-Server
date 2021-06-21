@@ -41,12 +41,23 @@ namespace JET.Server.Handlers
                 ID = 5000
             };
             
-            foreach (var gameSession in server.GameSessions.Values)
+            // send a player bundles to other players
+            /*foreach (var gameSession in server.GameSessions.Values)
             {
                 if (gameSession.connection.connectionId == message.conn.connectionId) continue;
                 gameSession.BundlesQueue.Enqueue(msg);
-            }
+            }*/
 
+            /*var authResponseMessage = AuthResponseMessage.GetAuthResponseMessage();
+            authResponseMessage.MemberCategory = player.Profile.Info.MemberCategory;
+            authResponseMessage.Prefabs = Singleton<GameWorld>.Instance.GetAllLootPrefabs();
+            authResponseMessage.Customization = player.Profile.Customization.Select(pair => pair.Value).ToArray();
+
+            NetworkServer.SendToClient(
+                message.conn.connectionId,
+                AuthResponseMessage.MessageId,
+                authResponseMessage
+            );*/
         }
     }
 }
