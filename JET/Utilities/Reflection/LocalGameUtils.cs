@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Comfort.Common;
 using UnityEngine;
 using EFT;
 
@@ -6,6 +7,11 @@ namespace JET.Utilities.Reflection
 {
     internal static class LocalGameUtils
     {
+        public static LocalGame GetLocalGame()
+        {
+            return Singleton<AbstractGame>.Instance as LocalGame;
+        }
+
         public static FieldInfo GetFinishCallBack(AbstractGame game)
         {
             FieldInfo callBackField = PrivateValueAccessor.GetPrivateFieldInfo(game.GetType().BaseType, "callback_0");
