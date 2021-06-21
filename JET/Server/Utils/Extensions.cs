@@ -1,6 +1,8 @@
 ﻿using System.Linq;
+using Comfort.Common;
 using EFT;
 using EFT.InventoryLogic;
+using JET.Utilities.Reflection;
 
 namespace JET.Server.Utils
 {
@@ -12,6 +14,11 @@ namespace JET.Server.Utils
                 .Concat(profile.Inventory.GetAllEquipmentItems()).ToArray();
 
             return sources.SelectMany(x => x.Template.AllResources).ToArray();
+        }
+
+        public static World GetWorld(this GameWorld gameWorld)
+        {
+            return gameWorld.GetComponent<World>();
         }
     }
 }
