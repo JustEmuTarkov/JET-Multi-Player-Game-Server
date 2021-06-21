@@ -17,12 +17,12 @@ namespace JET.Server.Messages
     {
         public bool EncryptionEnabled = false;
         public bool DecryptionEnabled = false;
-        public GClass938 GameDateTime = null;
+        public GClass938 GameDateTime;
         public byte[] Prefabs = new byte[0];
         public byte[] Customizations = new byte[0];
         public byte[] Weathers = new byte[0];
         public bool CanRestart = false;
-        public EMemberCategory MemberCategory = EMemberCategory.Developer;
+        public EMemberCategory MemberCategory;
         public float FixedDeltaTime = 0.016666668f; //// Token: 0x04005E7A RID: 24186
         public byte[] Interactables = new byte[0];
         public byte[] SessionId = new byte[0];
@@ -88,17 +88,24 @@ namespace JET.Server.Messages
                 .ToArray();
             var prefabBytes = SimpleZlib.CompressToBytes(lootPrefabs.ToJson(), 9);
 
+            var customizationItems = profile.Customization.Select(pair => pair.Value).ToArray();
+            var customizationBytes = SimpleZlib.CompressToBytes(customizationItems.ToJson(), 9);
+
             var sessionId = Encoding.UTF8.GetBytes(profile.AccountId);
 
             return new AuthResponseMessage
             {
+                MemberCategory = profile.Info.MemberCategory,
                 LovelBounds = GClass862.UsualPositionQuantizer.GetBounds(),
                 Weathers = weatherBytes,
                 Interactables = interactiveObjectsBytes,
                 GameDateTime = localTime,
                 Prefabs = prefabBytes,
+                Customizations = customizationBytes,
                 SessionId = sessionId
             };
         }
+
+        public const short MessageID = 147;
     }
 }
