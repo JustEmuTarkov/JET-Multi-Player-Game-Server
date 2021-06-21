@@ -33,14 +33,14 @@ namespace JET.Server.Handlers
             var playerPrefabs = profiles[0].GetAllInventoryPrefabs();
             server.AllPrefabs.AddRange(playerPrefabs);
 
-            var customizationIds = player.Profile.Customization.Select(pair => pair.Value);
+            /*var customizationIds = player.Profile.Customization.Select(pair => pair.Value);
             var msg = new LoadBundlesMessage()
             {
                 Prefabs = playerPrefabs.ToArray(),
-                //CustomizationIds = customizationIds.ToArray(),
+                CustomizationIds = customizationIds.ToArray(),
                 ID = 5000
-            };
-            
+            };*/
+
             // send a player bundles to other players
             /*foreach (var gameSession in server.GameSessions.Values)
             {
@@ -48,16 +48,13 @@ namespace JET.Server.Handlers
                 gameSession.BundlesQueue.Enqueue(msg);
             }*/
 
-            /*var authResponseMessage = AuthResponseMessage.GetAuthResponseMessage();
-            authResponseMessage.MemberCategory = player.Profile.Info.MemberCategory;
-            authResponseMessage.Prefabs = Singleton<GameWorld>.Instance.GetAllLootPrefabs();
-            authResponseMessage.Customization = player.Profile.Customization.Select(pair => pair.Value).ToArray();
+            var authResponseMessage = AuthResponseMessage.GetResponseMessage(profiles[0]);
 
             NetworkServer.SendToClient(
                 message.conn.connectionId,
-                AuthResponseMessage.MessageId,
+                AuthResponseMessage.MessageID,
                 authResponseMessage
-            );*/
+            );
         }
     }
 }
