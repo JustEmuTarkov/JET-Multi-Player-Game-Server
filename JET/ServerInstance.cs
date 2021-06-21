@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using Comfort.Common;
 using EFT;
 using JET.Server.Connection;
@@ -18,6 +19,7 @@ namespace JET
     {
         public static int NextChannelId = 5;
         public const int Port = 5000;
+        public GClass1345[] weatherNodes = GClass1345.GetRandomTestWeatherNodes();
 
         public ulong LocalIndex { get; set; }
         public double LocalTime { get; private set; }
@@ -67,6 +69,10 @@ namespace JET
                     "ServerInstance.FixedUpdate: UDP server started on port " + Port);
                 ServerHandlers.RegisterServerHandlers();
             }
+
+            var levelPhysicsSettings = GClass494.GetAllComponentsOfType<LevelPhysicsSettings>(false);
+            Console.WriteLine($"LevelPhysicsSettings count: {levelPhysicsSettings.Count}");
+            GClass862.SetupPositionQuantizer(levelPhysicsSettings.ToArray()[0].GetGlobalBounds());
         }
 
         public static int GetNextChannelId()
