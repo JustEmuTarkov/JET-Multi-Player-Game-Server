@@ -92,6 +92,19 @@ namespace JET
             Singleton<GameWorld>.Instance.UnregisterPlayer(game.PlayerOwner.Player);
         }
 
+        public override void OnServerReady(NetworkConnection conn)
+        {
+            Console.WriteLine("OnSceneReady called on client");
+            SceneReadyHandler.OnSceneReady(conn);
+            base.OnServerReady(conn);
+        }
+
+        private void OnApplicationQuit()
+        {
+            if (NetworkServer.active)
+                NetworkServer.Shutdown();
+        }
+
         public static int GetNextChannelId()
         {
             var id = ++NextChannelId;
