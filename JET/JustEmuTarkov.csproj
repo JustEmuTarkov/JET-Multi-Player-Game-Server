@@ -151,6 +151,7 @@
     <Compile Include="Server\Connection\Config.cs" />
     <Compile Include="Server\Handlers\AuthHandlers.cs" />
     <Compile Include="Server\Handlers\BundlesLoadHandler.cs" />
+    <Compile Include="Server\Handlers\PlayerReadyHandler.cs" />
     <Compile Include="Server\Handlers\SceneReadyHandler.cs" />
     <Compile Include="Server\Handlers\ServerHandlers.cs" />
     <Compile Include="Server\Messages\AuthRequestMessage.cs" />
