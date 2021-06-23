@@ -11,11 +11,7 @@ namespace JET.Server.Handlers
         {
             NetworkServer.RegisterHandler(AuthRequestMessage.MessageID, AuthHandlers.OnAuthMessage);
             NetworkServer.RegisterHandler(LoadBundlesStatusMessage.MessageID, BundlesLoadHandler.OnReportProgressLoading);
-        }
-
-        public static void OnSceneReady(NetworkConnection conn)
-        {
-            SceneReadyHandler.OnSceneReady(conn);
+            NetworkServer.RegisterHandler(InteractiveHandler.MessageID, InteractiveHandler.OnInteractivePacket);
         }
     }
 }
