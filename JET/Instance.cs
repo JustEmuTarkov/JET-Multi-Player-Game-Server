@@ -11,6 +11,7 @@ using JET.Patches.Quests;
 using JET.Patches.ScavMode;
 using System.Reflection;
 using JET.Patches.Ragfair;
+using EFT;
 
 namespace JET
 {
@@ -26,7 +27,7 @@ namespace JET
             PatcherUtil.Patch<SslCertificatePatch>();
             PatcherUtil.Patch<UnityWebRequestPatch>();
             PatcherUtil.Patch<NotificationSslPatch>();
-            PatcherUtil.Patch<UnlockItemsIdLength>();
+            //PatcherUtil.Patch<UnlockItemsIdLength>();
             // allows to turn on and off the PreloaderUI.SetStreamMode(bool)
             // PatcherUtil.Patch<Patches.Core.StreamerModePatch>(); 
             // PatcherUtil.Patch<Patches.Core.FixChatOnDestroyPatch>(); 
@@ -35,21 +36,21 @@ namespace JET
 
             new Settings(null, Config.BackendUrl);
             
-            PatcherUtil.Patch<EasyAssetsPatch>();
-            PatcherUtil.Patch<EasyBundlePatch>();
-            PatcherUtil.Patch<BundleLoadPatch>();
+           // PatcherUtil.Patch<EasyAssetsPatch>();
+            //PatcherUtil.Patch<EasyBundlePatch>();
+            //PatcherUtil.Patch<BundleLoadPatch>();
             Debug.LogError("RuntimeBundles: Loaded");
 
             //OfflineModePatchRoutes(Offline.LoadModules());
 
 
-            WatermarkOverrider();
+            //WatermarkOverrider();
             
             gameObject.AddComponent<ServerInstance>();
         }
         EFT.UI.LocalizedText localizedText;
         private void LateUpdate() {
-            WatermarkOverrider();
+            //WatermarkOverrider();
 
             // DISABLE ADD OFFER BUTTON IN FLEA MARKET
             //try

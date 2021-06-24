@@ -32,7 +32,7 @@ namespace JET.Launcher
         {
             //Environment.CurrentDirectory = @"J:\TarkovGame\EFT_10988 - Emulator"; // Change to debug path
 #if DEBUG
-            Environment.CurrentDirectory = @"C:\Emu Tarkov\12.9.10988\modded\client"; // Change to debug path
+            //Environment.CurrentDirectory = @"C:\Emu Tarkov\12.9.10988\modded\client"; // Change to debug path
 #endif
             var managedPath = Path.Combine(Environment.CurrentDirectory, "EscapeFromTarkov_Data/Managed");
             foreach (var file in Directory.GetFiles(managedPath))

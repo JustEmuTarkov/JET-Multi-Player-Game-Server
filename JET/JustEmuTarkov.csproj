@@ -36,9 +36,8 @@
       <HintPath>..\Shared\References\0Harmony.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Assembly-CSharp">
+    <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\Shared\References\Assembly-CSharp.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="bsg.componentace.compression.libs.zlib">
       <HintPath>..\Shared\References\bsg.componentace.compression.libs.zlib.dll</HintPath>
@@ -211,9 +210,10 @@
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>xcopy /Y /I "$(TargetDir)NLog.JET.dll" "$(SolutionDir)\Build\EscapeFromTarkov_Data\Managed\"
+xcopy /Y /I "$(TargetDir)NLog.JET.pdb" "$(SolutionDir)\Build\EscapeFromTarkov_Data\Managed\"
 xcopy /Y /I "$(SolutionDir)Shared\Resources\NLog.dll.nlog" "$(SolutionDir)\Build\EscapeFromTarkov_Data\Managed\"
 xcopy /Y /I "$(SolutionDir)Shared\References\0Harmony.dll" "$(SolutionDir)\Build\EscapeFromTarkov_Data\Managed\"
 xcopy /Y /I "$(SolutionDir)Shared\References\Assembly-CSharp.dll" "$(SolutionDir)\Build\EscapeFromTarkov_Data\Managed\"
-</PostBuildEvent>
+	</PostBuildEvent>
   </PropertyGroup>
 </Project>
