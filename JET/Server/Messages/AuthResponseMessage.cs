@@ -68,7 +68,7 @@ namespace JET.Server.Messages
             var server = Singleton<ServerInstance>.Instance;
             var gameWorld = Singleton<GameWorld>.Instance;
 
-            var weatherBytes = SimpleZlib.CompressToBytes(server.weatherNodes.ToJson(), 9);
+            var weatherBytes = SimpleZlib.CompressToBytes(server.WeatherNodes.ToJson(), 9);
 
             var allInteractiveObjects = LocationScene.GetAllObjects<WorldInteractiveObject>().ToArray();
             var networkInteractiveObjects = allInteractiveObjects.ToDictionary(

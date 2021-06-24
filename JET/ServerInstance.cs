@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Comfort.Common;
 using EFT;
+using EFT.UI;
+using EFT.UI.Screens;
 using JET.Server.Connection;
 using JET.Server.Handlers;
 using JET.Server.Player;
@@ -20,12 +22,13 @@ namespace JET
         public static int NextChannelId = 5;
 
         public const int Port = 5000;
-        const int MaxConnections = 20;
+        public const int MaxConnections = 20;
         public const int MaxPlayersOnMap = 200;
-        public GClass1345[] weatherNodes = GClass1345.GetRandomTestWeatherNodes();
+        public GClass1345[] WeatherNodes;
 
         public ulong LocalIndex { get; set; }
         public double LocalTime { get; private set; }
+        public bool ReadyToStart { get; private set; }
         public bool RaidStarted { get; private set; }
         public bool WorldSpawned { get; private set; }
 
@@ -37,6 +40,7 @@ namespace JET
         {
             Singleton<ServerInstance>.Create(this);
             ClientAppUtils.EnableLogs(); // enable debug logs in game
+            WeatherNodes = GClass1345.GetRandomTestWeatherNodes();
             Console.WriteLine("ServerInstance.Start");
         }
 
@@ -46,13 +50,18 @@ namespace JET
             LocalIndex = currentIndex + 1UL;
             LocalTime += Time.deltaTime;
 
-            if (!RaidStarted && LocalGameUtils.IsGameStarted())
+            if (!RaidStarted && LocalGameUtils.IsGameReadyForStart())
             {
                 Console.WriteLine("ServerInstance.FixedUpdate: starting MP server");
-                RaidStarted = true;
 
                 string locationId = "factory4_day";
-                LocalGameUtils.StartOfflineRaid(locationId);
+                var result = LocalGameUtils.StartOfflineRaid(locationId);
+                if (!result)
+                {
+                    Console.WriteLine("ServerInstance.FixedUpdate: unable to start mp server");
+                }
+
+                RaidStarted = result;
             }
 
             if (WorldSpawned)

@@ -1,7 +1,11 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using Comfort.Common;
 using UnityEngine;
 using EFT;
+using EFT.UI;
+using EFT.UI.Screens;
+using Random = UnityEngine.Random;
 
 namespace JET.Utilities.Reflection
 {
@@ -48,13 +52,17 @@ namespace JET.Utilities.Reflection
             return createOwnerFunc;
         }
 
-
-        public static bool IsGameStarted()
+        public static GClass1194 GetMainMenu()
         {
             var app = ClientAppUtils.GetMainApp();
 
-            var g = PrivateValueAccessor.GetPrivateFieldValue(app.GetType().BaseType, "gclass1194_0", app);
-            return g != null;
+            return PrivateValueAccessor.GetPrivateFieldValue(app.GetType(), "gclass1194_0", app) as GClass1194;
+        }
+
+
+        public static bool IsGameReadyForStart()
+        {
+            return GClass2029.CheckCurrentScreen(EScreenType.MainMenu);
         }
 
 
@@ -75,25 +83,42 @@ namespace JET.Utilities.Reflection
         public static bool StartOfflineRaid(string locationId)
         {
             var app = ClientAppUtils.GetMainApp();
-
-            var methodInfo = PrivateMethodAccessor.GetPrivateMethodInfo(app, "method_31");
-            if (methodInfo == null)
+            if (app == null)
+            {
+                Console.WriteLine("JET.Utilities.Reflection.LocalGameUtils.StartOfflineRaid: ERROR!!! app is empty");
                 return false;
+            }
 
-            var timeAndWeather = new GStruct92(true, true);
+            if (typeof(MainApplication) != app.GetType())
+            {
+                Console.WriteLine("JET.Utilities.Reflection.LocalGameUtils.StartOfflineRaid: ERROR!!! instance of app is not equal to MainApplication!");
+                return false;
+            }
+
+            var methodInfo = PrivateMethodAccessor.GetPrivateMethodByType(app.GetType(), "method_31");
+            if (methodInfo == null)
+            {
+                Console.WriteLine("JET.Utilities.Reflection.LocalGameUtils.StartOfflineRaid: ERROR!!! method_31 info is empty");
+                return false;
+            }
+
+            GStruct92 timeAndWeather = default;
             var num = Random.Range(1, 6);
 
             var locationInfo = GClass512.Load<TextAsset>("LocalLoot/" + locationId + num).text
                 .ParseJsonTo<GClass782.GClass783>();
             var localLoot = locationInfo.Location.ParseJsonTo<GClass782.GClass784>();
 
+            PrivateValueAccessor.SetPrivateFieldValue(app.GetType(), "_localGame", app, true);
+
             try
             {
-                methodInfo.Invoke(app, new object[] {localLoot, timeAndWeather, ""});
+                methodInfo.Invoke(app, new object[] {localLoot, timeAndWeather, "factory4_day"});
             }
-            catch
+            catch (Exception e)
             {
-                return false;
+                Console.WriteLine("JET.Utilities.Reflection.LocalGameUtils.StartOfflineRaid: ERROR!!! methodInfo.Invoke \r\n {0}", e);
+                throw;
             }
 
             return true;

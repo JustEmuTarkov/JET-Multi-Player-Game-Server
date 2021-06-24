@@ -21,7 +21,7 @@ namespace JET.Server.Player
 
         public static ServerPlayer Create(int playerId, Vector3 position, GInterface62 frameIndexer)
         {
-            var createPlayerInfo = PrivateMethodAccessor.GetPrivateStaticMethodInfo(typeof(NetworkPlayer), "smethod_2");
+            var createPlayerInfo = PrivateMethodAccessor.GetPrivateMethodInfoByType(typeof(NetworkPlayer), "smethod_2");
             try
             {
                 var player = createPlayerInfo.Invoke(null, new object[]
