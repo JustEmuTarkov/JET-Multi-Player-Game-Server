@@ -7,19 +7,21 @@ namespace JET.Server.Connection
 {
     public static class Config
     {
-        public static ConnectionConfig GetConfiguration()
+        public static ConnectionConfig GetHostConfiguration()
         {
-            var config = GetConnectionConfig();
-
+            var connectionConfig = GetConnectionConfig();
+            
             for (var i = 0; i < 102; i++)
             {
-                var item = config.AddChannel(QosType.Reliable);
-                var item2 = config.AddChannel(QosType.Unreliable);
-
-                config.MakeChannelsSharedOrder(new List<byte> {item, item2});
+                var item = connectionConfig.AddChannel(QosType.Reliable);
+                var item2 = connectionConfig.AddChannel(QosType.Unreliable);
+                connectionConfig.MakeChannelsSharedOrder(new List<byte>
+                {
+                    item,
+                    item2
+                });
             }
-
-            return config;
+            return connectionConfig;
         }
 
         private static ConnectionConfig GetConnectionConfig()
@@ -30,11 +32,11 @@ namespace JET.Server.Connection
                 NetworkDropThreshold = 25,
                 OverflowDropThreshold = 80,
                 AcksType = ConnectionAcksType.Acks128,
-                Channels =
+                Channels = 
                 {
                     new ChannelQOS(QosType.ReliableFragmented),
                     new ChannelQOS(QosType.ReliableFragmented),
-                    new ChannelQOS(QosType.ReliableFragmented)
+                    new ChannelQOS(QosType.ReliableFragmentedSequenced)
                 }
             };
         }

@@ -199,6 +199,9 @@
   <ItemGroup>
     <None Include="CodeMap.dgml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Server\PatchList.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent Condition="'$(OS)' != 'Unix'">

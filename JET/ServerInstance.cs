@@ -14,9 +14,10 @@ using JET.Utilities.Reflection;
 using UnityEngine;
 using UnityEngine.Networking;
 
+#pragma warning disable 618
+
 namespace JET
 {
-#pragma warning disable 618
     public class ServerInstance : NetworkManager, GInterface62
     {
         public static int NextChannelId = 5;
@@ -28,7 +29,6 @@ namespace JET
 
         public ulong LocalIndex { get; set; }
         public double LocalTime { get; private set; }
-        public bool ReadyToStart { get; private set; }
         public bool RaidStarted { get; private set; }
         public bool WorldSpawned { get; private set; }
 
@@ -75,7 +75,10 @@ namespace JET
 
             if (!NetworkServer.active)
             {
-                var started = StartServer(Config.GetConfiguration(), 20);
+                networkPort = Port;
+                networkAddress = "127.0.0.1";
+                
+                var started = StartServer(Config.GetHostConfiguration(), MaxConnections);
                 if (!started)
                 {
                     Console.WriteLine(
