@@ -12,6 +12,7 @@ namespace JET.Utilities.HTTP
         public string Session;
         public string RemoteEndPoint;
         public bool isUnity;
+
         public Request(string session, string remoteEndPoint, bool isUnity = true)
         {
             Session = session;
@@ -67,7 +68,7 @@ namespace JET.Utilities.HTTP
             }
             catch (Exception e)
             {
-                if(isUnity)
+                if (isUnity)
                     Debug.LogError(e);
             }
 
@@ -76,7 +77,9 @@ namespace JET.Utilities.HTTP
 
         public void PutJson(string url, string data, bool compress = true)
         {
-            using (Stream stream = Send(url, "PUT", data, compress)) {}
+            using (Stream stream = Send(url, "PUT", data, compress))
+            {
+            }
         }
 
         public string GetJson(string url, bool compress = true)
@@ -122,6 +125,13 @@ namespace JET.Utilities.HTTP
                     return texture;
                 }
             }
+        }
+
+        public class ServerResponse<T>
+        {
+            public int err;
+            public string errmsg;
+            public T data;
         }
     }
 }

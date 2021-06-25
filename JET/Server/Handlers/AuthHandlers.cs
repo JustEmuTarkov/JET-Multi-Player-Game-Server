@@ -19,18 +19,20 @@ namespace JET.Server.Handlers
             var authRequest = message.ReadMessage<AuthRequestMessage>();
             var server = Singleton<ServerInstance>.Instance;
 
-            var profiles = new Request(null, Config.BackendUrl).GetJson($"/client/game/profile/list/{authRequest.ProfileId}").ParseJsonTo<Profile[]>();
+            var request = new Request(null, Config.BackendUrl);
+            var response = request.GetJson($"/server/profile/{authRequest.ProfileId}");
+            var profile = response.ParseJsonTo<Request.ServerResponse<Profile>>().data;
 
             var channelId = ServerInstance.GetNextChannelId();
-            var spawnMessage = PlayerSpawnMessage.FromProfile(channelId, profiles[0]);
+            var spawnMessage = PlayerSpawnMessage.FromProfile(channelId, profile);
 
             var player = ServerPlayer.Create(spawnMessage.PlayerID, spawnMessage.Position, Singleton<ServerInstance>.Instance);
-            await player.Init(profiles[0]);
+            await player.Init(profile);
 
             player.channelIndex = (byte) channelId;
             server.NetworkClients.TryAdd(message.conn.connectionId, player);
 
-            var playerPrefabs = profiles[0].GetAllInventoryPrefabs();
+            var playerPrefabs = profile.GetAllInventoryPrefabs();
             server.AllPrefabs.AddRange(playerPrefabs);
 
             /*var customizationIds = player.Profile.Customization.Select(pair => pair.Value);
@@ -48,7 +50,7 @@ namespace JET.Server.Handlers
                 gameSession.BundlesQueue.Enqueue(msg);
             }*/
 
-            var authResponseMessage = AuthResponseMessage.GetResponseMessage(profiles[0]);
+            var authResponseMessage = AuthResponseMessage.GetResponseMessage(profile);
 
             NetworkServer.SendToClient(
                 message.conn.connectionId,
