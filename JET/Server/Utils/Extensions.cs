@@ -16,9 +16,9 @@ namespace JET.Server.Utils
             return sources.SelectMany(x => x.Template.AllResources).ToArray();
         }
 
-        public static World GetWorld(this GameWorld gameWorld)
+        public static EFT.World GetWorld(this GameWorld gameWorld)
         {
-            return gameWorld.GetComponent<World>();
+            return gameWorld.GetComponent<EFT.World>();
         }
     }
 }

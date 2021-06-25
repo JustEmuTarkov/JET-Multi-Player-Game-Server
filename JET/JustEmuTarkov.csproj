@@ -170,6 +170,7 @@
     <Compile Include="Server\Session\PlayerSession.cs" />
     <Compile Include="Server\Trash\PlayerSpawnMessageTrash.cs" />
     <Compile Include="Server\Utils\Extensions.cs" />
+    <Compile Include="Server\World\ServerWorld.cs" />
     <Compile Include="Utilities\App\Json.cs" />
     <Compile Include="Utilities\App\Logger.cs" />
     <Compile Include="Utilities\App\ProcessMonitor.cs" />

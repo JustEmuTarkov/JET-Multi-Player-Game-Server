@@ -10,6 +10,7 @@ using JET.Server.Connection;
 using JET.Server.Handlers;
 using JET.Server.Player;
 using JET.Server.Session;
+using JET.Server.World;
 using JET.Utilities.Reflection;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -26,6 +27,7 @@ namespace JET
         public const int MaxConnections = 20;
         public const int MaxPlayersOnMap = 200;
         public GClass1345[] WeatherNodes;
+        public GClass782.GClass784 LootSettings;
 
         public ulong LocalIndex { get; set; }
         public double LocalTime { get; private set; }
@@ -55,13 +57,15 @@ namespace JET
                 Console.WriteLine("ServerInstance.FixedUpdate: starting MP server");
 
                 string locationId = "factory4_day";
-                var result = LocalGameUtils.StartOfflineRaid(locationId);
-                if (!result)
+                var lootSettings = LocalGameUtils.StartOfflineRaid(locationId);
+                if (lootSettings == null)
                 {
                     Console.WriteLine("ServerInstance.FixedUpdate: unable to start mp server");
+                    return;
                 }
 
-                RaidStarted = result;
+                LootSettings = lootSettings;
+                RaidStarted = true;
             }
 
             if (WorldSpawned)
@@ -71,13 +75,16 @@ namespace JET
             if (gameWorld == null || gameWorld.AllLoot.Count <= 0)
                 return;
 
+            World.smethod_0<ServerWorld>(null, null, false);
+
             WorldSpawned = true;
+
 
             if (!NetworkServer.active)
             {
                 networkPort = Port;
                 networkAddress = "127.0.0.1";
-                
+
                 var started = StartServer(Config.GetHostConfiguration(), MaxConnections);
                 if (!started)
                 {
