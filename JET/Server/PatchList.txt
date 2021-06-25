@@ -1,4 +1,5 @@
 ﻿====================================================================================================
+Client
 NetworkGameSession
 // Token: 0x060069FD RID: 27133 RVA: 0x000E2857 File Offset: 0x000E0A57
 void Class1124.Interface3.OnConnect(NetworkConnection connection)
