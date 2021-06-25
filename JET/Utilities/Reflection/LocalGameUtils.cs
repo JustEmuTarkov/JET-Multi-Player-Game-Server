@@ -80,26 +80,26 @@ namespace JET.Utilities.Reflection
 			"laboratory"
 		};
          */
-        public static bool StartOfflineRaid(string locationId)
+        public static GClass782.GClass784 StartOfflineRaid(string locationId)
         {
             var app = ClientAppUtils.GetMainApp();
             if (app == null)
             {
                 Console.WriteLine("JET.Utilities.Reflection.LocalGameUtils.StartOfflineRaid: ERROR!!! app is empty");
-                return false;
+                return null;
             }
 
             if (typeof(MainApplication) != app.GetType())
             {
                 Console.WriteLine("JET.Utilities.Reflection.LocalGameUtils.StartOfflineRaid: ERROR!!! instance of app is not equal to MainApplication!");
-                return false;
+                return null;
             }
 
             var methodInfo = PrivateMethodAccessor.GetPrivateMethodByType(app.GetType(), "method_31");
             if (methodInfo == null)
             {
                 Console.WriteLine("JET.Utilities.Reflection.LocalGameUtils.StartOfflineRaid: ERROR!!! method_31 info is empty");
-                return false;
+                return null;
             }
 
             GStruct92 timeAndWeather = default;
@@ -114,6 +114,7 @@ namespace JET.Utilities.Reflection
             try
             {
                 methodInfo.Invoke(app, new object[] {localLoot, timeAndWeather, "factory4_day"});
+                return localLoot;
             }
             catch (Exception e)
             {
@@ -121,7 +122,7 @@ namespace JET.Utilities.Reflection
                 throw;
             }
 
-            return true;
+            return null;
         }
     }
 }
