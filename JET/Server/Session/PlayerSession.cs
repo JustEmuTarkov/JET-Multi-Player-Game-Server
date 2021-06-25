@@ -4,6 +4,7 @@ using Comfort.Common;
 using EFT;
 using JET.Server.Messages;
 using JET.Server.Player;
+using JET.Server.World;
 using UnityEngine;
 
 namespace JET.Server.Session
@@ -86,28 +87,6 @@ namespace JET.Server.Session
                 return;
             }
 
-            if (BundlesQueue.Count > 0)
-            {
-                ShortPeriod = 0.1f;
-                if (isInLoadBundlesState) return;
-
-                var bundleMessage = BundlesQueue.Dequeue();
-                Connection.Send(LoadBundlesMessage.MessageID, bundleMessage);
-                isInLoadBundlesState = true;
-                return;
-            }
-
-            /*if (SpawnQueue.Count > 0)
-            {
-                //if (isInSpawnObserverState) return;
-
-                var spawnMessage = SpawnQueue.Dequeue();
-
-                connection.Send(ObserverSpawnMessage.MessageId, spawnMessage);
-                isInSpawnObserverState = true;
-                return;
-            }*/
-
             if (playerIsSpawned && !gameSpawnedIsSent)
             {
                 RpcGameSpawned();
@@ -148,60 +127,21 @@ namespace JET.Server.Session
             }
         }
 
-        /*protected override void CmdSpawnConfirm(int spawnedChannel)
+        protected override void CmdSpawnConfirm(int spawnedChannel)
         {
-            var serverInstance = Singleton<ServerInstance>.Instance;
-            var allBots = BotsMonitor.AllBots;
-
             Console.WriteLine(
-                $"CmdSpawnConfirm from client {connection.connectionId} " +
+                $"CmdSpawnConfirm from client {Connection.connectionId} " +
                 $"Spawned with channelId {spawnedChannel} " +
                 $"Self channelId {chanelId}"
             );
-            isInSpawnObserverState = false;
 
             if (chanelId == spawnedChannel)
             {
-                if (playerIsSpawned) return;
-
-                foreach (var gameSession in serverInstance.GameSessions.Values)
-                {
-                    if (gameSession.chanelId == chanelId) continue;
-                    var spawnMessage = PlayerSpawnMessage.FromInstance(gameSession.player, gameSession.chanelId);
-
-                    SpawnQueue.Enqueue(spawnMessage);
-                }
-
-                foreach (var bot in allBots.Values)
-                {
-                    var emitter = bot.GetComponent<BotStateEmitter>();
-                    var spawnMessage = PlayerSpawnMessage.FromInstance(bot.GetPlayer, emitter.channelId);
-                    spawnMessage.PlayerId = emitter.channelId;
-
-                    SpawnQueue.Enqueue(spawnMessage);
-                }
-
                 playerIsSpawned = true;
-            }
-            else
-            {
-                if (allBots.TryGetValue(spawnedChannel, out var bot))
-                {
-                    var emitter = bot.GetComponent<BotStateEmitter>();
-                    emitter.availableChannels[chanelId] = true;
-                    return;
-                }
-
-                if (serverInstance.GameSessions.TryGetValue(spawnedChannel, out var session))
-                {
-                    session.availableChannels[chanelId] = true;
-
-                    return;
-                }
             }
 
             RpcSyncGameTime(DateTime.UtcNow.ToBinary());
             Singleton<ServerWorld>.Instance.AddInteractiveObjectsStatusPacket();
-        }*/
+        }
     }
 }
