@@ -25,7 +25,7 @@ namespace JET.Server.Session
 
         private void Start()
         {
-            Console.WriteLine($"NetworkGameSession started, con id: {connection.connectionId}");
+            Console.WriteLine($"NetworkGameSession started, con id: {Connection.connectionId}");
             Console.WriteLine($"NetworkGameSession started, channel id: {chanelId}");
             Console.WriteLine($"NetworkGameSession started, channel index: {chanelIndex}");
         }
@@ -42,7 +42,7 @@ namespace JET.Server.Session
                 return;
             }
 
-            CallRpcGameMatching(5, 1, 10);
+            RpcGameMatching(5, 1, 10);
         }
 
         private void UpdatePerTenSec()
@@ -51,7 +51,7 @@ namespace JET.Server.Session
             {
                 var worldSpawnMessage = new WorldSpawnMessage();
 
-                connection.Send(WorldSpawnMessage.MessageID, worldSpawnMessage);
+                Connection.Send(WorldSpawnMessage.MessageID, worldSpawnMessage);
                 worldMessageIsSent = true;
                 return;
             }
@@ -59,7 +59,7 @@ namespace JET.Server.Session
             if (worldMessageIsSent && !subWorldMessageIsSent)
             {
                 var subWorldSpawnMessage = new SubWorldSpawnMessage();
-                connection.Send(SubWorldSpawnMessage.MessageID, subWorldSpawnMessage);
+                Connection.Send(SubWorldSpawnMessage.MessageID, subWorldSpawnMessage);
                 subWorldMessageIsSent = true;
                 return;
             }
@@ -71,7 +71,7 @@ namespace JET.Server.Session
                 var spawnMessage = PlayerSpawnMessage.FromProfile(chanelId, player.Profile);
                 spawnMessage.IsInSpawnOperation = false;
 
-                connection.Send(PlayerSpawnMessage.MessageID, spawnMessage);
+                Connection.Send(PlayerSpawnMessage.MessageID, spawnMessage);
 
                 foreach (var gameSession in serverInstance.GameSessions.Values)
                 {
@@ -92,7 +92,7 @@ namespace JET.Server.Session
                 if (isInLoadBundlesState) return;
 
                 var bundleMessage = BundlesQueue.Dequeue();
-                connection.Send(LoadBundlesMessage.MessageID, bundleMessage);
+                Connection.Send(LoadBundlesMessage.MessageID, bundleMessage);
                 isInLoadBundlesState = true;
                 return;
             }
@@ -110,25 +110,25 @@ namespace JET.Server.Session
 
             if (playerIsSpawned && !gameSpawnedIsSent)
             {
-                CallRpcGameSpawned();
+                RpcGameSpawned();
                 gameSpawnedIsSent = true;
                 return;
             }
 
             if (gameSpawnedIsSent && !gameStartingIsSent)
             {
-                CallRpcGameStarting(5);
+                RpcGameStarting(5);
                 gameStartingIsSent = true;
                 return;
             }
 
             if (gameStartingIsSent && !gameStartedIsSent)
             {
-                CallRpcGameStarted(1, 3322);
+                RpcGameStarted(1, 3322);
                 gameStartedIsSent = true;
 
                 player.InventoryController.SetExamined(true);
-                player.ManageGameQuests();
+                //player.ManageGameQuests();
                 RegisterEnemy();
             }
         }

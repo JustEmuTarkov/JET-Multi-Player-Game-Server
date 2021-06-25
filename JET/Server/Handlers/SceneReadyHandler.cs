@@ -27,9 +27,10 @@ namespace JET.Server.Handlers
 
             session.tag = "Finish";
             session.player = player;
-            session.connection = conn;
+            session.Connection = conn;
             session.chanelId = channelId;
             session.chanelIndex = channelId;
+            session.memberCategory = player.Profile.Info.MemberCategory;
             player.Session = session;
 
             serverInstance.GameSessions.TryAdd(channelId, session);
