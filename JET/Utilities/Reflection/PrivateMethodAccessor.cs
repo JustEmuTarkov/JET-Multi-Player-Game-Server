@@ -15,7 +15,7 @@ namespace JET.Utilities.Reflection
         /// <returns>MethodInfo object. It has the method name and a useful Invoke() method.</returns>
         public static MethodInfo GetPrivateMethodInfo(object obj, string methodName)
         {
-            MethodInfo[] methods = obj.GetType().GetMethods(PrivateValueAccessor.Flags | BindingFlags.Instance);
+            MethodInfo[] methods = obj.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Instance);
             return methods.FirstOrDefault(methodInfo => methodInfo.Name == methodName);
         }
 
@@ -34,6 +34,16 @@ namespace JET.Utilities.Reflection
         public static MethodInfo GetPrivateMethodByType(Type type, string methodName)
         {
             return type.GetTypeInfo().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
+        }
+
+        public static MethodInfo GetPrivateStaticMethodByType(Type type, string methodName)
+        {
+            return type.GetTypeInfo().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static);
+        }
+
+        public static MethodInfo GetPrivateStaticGenericMethodByType<T>(Type type, string methodName)
+        {
+            return type.GetTypeInfo().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)?.MakeGenericMethod(typeof(T));
         }
     }
 }

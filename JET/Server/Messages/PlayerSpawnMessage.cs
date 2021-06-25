@@ -56,16 +56,16 @@ namespace JET.Server.Messages
                 {
                     binaryWriter.Write(GClass970.SerializeInventory(Inventory));
                     var buff = memoryStream.ToArray();
-                    writer.WriteBytesAndSize(buff, buff.Length);
+                    writer.SafeWriteSizeAndBytes(buff, buff.Length);
                 }
             }
 
             // write profile data
             byte[] profileData = SimpleZlib.CompressToBytes(PlayerProfile.ToJson(), 9);
-            writer.WriteBytesAndSize(profileData, profileData.Length);
+            writer.SafeWriteSizeAndBytes(profileData, profileData.Length);
 
             // write searchable info
-            writer.SerializeSearchableInfo(PlayerProfile.Inventory.AllPlayerItems);
+            writer.SerializeSearchableInfo(Inventory.AllPlayerItems);
 
             writer.Write(IdGeneratorId);
 

@@ -34,7 +34,7 @@ namespace JET.Server.Trash
             
             GClass858.Serialize(gclass, loot);
             gclass.Flush();
-            writer.WriteBytesAndSize(gclass.Buffer, gclass.BytesWritten);
+            writer.SafeWriteSizeAndBytes(gclass.Buffer, gclass.BytesWritten);
         }
 
         public class SetupInfo

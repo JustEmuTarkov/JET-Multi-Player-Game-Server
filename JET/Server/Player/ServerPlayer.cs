@@ -4,7 +4,6 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Comfort.Common;
 using EFT;
-using JET.Server.Messages;
 using JET.Server.Session;
 using JET.Utilities.Reflection;
 using UnityEngine;
@@ -21,7 +20,14 @@ namespace JET.Server.Player
 
         public static ServerPlayer Create(int playerId, Vector3 position, GInterface62 frameIndexer)
         {
-            var createPlayerInfo = PrivateMethodAccessor.GetPrivateMethodInfoByType(typeof(NetworkPlayer), "smethod_2");
+            var createPlayerInfo = PrivateMethodAccessor.GetPrivateStaticGenericMethodByType<ServerPlayer>(typeof(NetworkPlayer), "smethod_2");
+            if (createPlayerInfo == null)
+            {
+                Console.WriteLine(
+                    "JET.Server.Player.ServerPlayer.Create: ERROR!!! createPlayerInfo is null\n");
+                return null;
+            }
+
             try
             {
                 var player = createPlayerInfo.Invoke(null, new object[]
@@ -38,8 +44,8 @@ namespace JET.Server.Player
                 if (player == null)
                     return player;
 
-                player._triggerColliderOnEnterInfo = PrivateMethodAccessor.GetPrivateMethodInfo(player, "method_109");
-                player._triggerColliderOnExitInfo = PrivateMethodAccessor.GetPrivateMethodInfo(player, "method_110");
+                player._triggerColliderOnEnterInfo = PrivateMethodAccessor.GetPrivateMethodByType(typeof(ObservedPlayer), "method_109");
+                player._triggerColliderOnExitInfo = PrivateMethodAccessor.GetPrivateMethodByType(typeof(ObservedPlayer), "method_110");
 
                 if (player._triggerColliderSearcher != null)
                 {
@@ -52,25 +58,27 @@ namespace JET.Server.Player
 
                 //player.ginterface104_0 = new GClass1237(player);
                 PrivateValueAccessor
-                    .SetPrivateFieldValue(player.GetType(), "ginterface104_0", player, new GClass1237(player));
+                    .SetPrivateFieldValue(typeof(ObservedPlayer), "ginterface104_0", player, new GClass1237(player));
 
                 //observedPlayer.method_92();
                 PrivateMethodAccessor.GetPrivateMethodInfo(player, "method_92").Invoke(player, new object[] { });
+
+                return player;
             }
-            catch
+            catch (Exception e)
             {
-                // ignored
+                Console.WriteLine(
+                    "JET.Server.Player.ServerPlayer.Create: error occurred while creating player instance!!!");
+                Console.WriteLine(e);
             }
 
-            Console.WriteLine(
-                "JET.Server.Player.ServerPlayer.Create: error occurred while creating player instance!!!");
             return null;
         }
 
         public async Task Init(Profile profile)
         {
             //this.gclass680_0 = new GClass680(2000);
-            PrivateValueAccessor.SetPrivateFieldValue(this.GetType(), "gclass680_0", this, new GClass680(1));
+            PrivateValueAccessor.SetPrivateFieldValue(typeof(ObservedPlayer), "gclass680_0", this, new GClass680(1));
 
             await Singleton<GClass1168>.Instance.LoadBundlesAndCreatePools(
                 GClass1168.PoolsCategory.Raid, GClass1168.AssemblyType.Local, profile.GetAllPrefabPaths().ToArray(), GClass2146.General
@@ -99,6 +107,30 @@ namespace JET.Server.Player
 
             _handsController = EmptyHandsController.smethod_5<ObservedEmptyHandsController>(this);
             _handsController.Spawn(1f, () => { });
+
+            Location = Singleton<ServerInstance>.Instance.LootSettings._Id;
+        }
+
+        public override GClass423 CreatePhysical()
+        {
+            return new GClass423
+            {
+                EncumberDisabled = _healthController.IsAlive
+            };
+        }
+
+        public override void ManualUpdate(float deltaTime, int loop = 1)
+        {
+            LastDeltaTime = deltaTime;
+            if (Mathf.Approximately(deltaTime, 0f))
+            {
+                Console.WriteLine("[ServerPlayer.ManualUpdate] deltaTime = {0}", deltaTime);
+                return;
+            }
+
+            _healthController?.ManualUpdate(deltaTime);
+
+            base.ManualUpdate(deltaTime, loop);
         }
 
         // private methods, fields, reflections
