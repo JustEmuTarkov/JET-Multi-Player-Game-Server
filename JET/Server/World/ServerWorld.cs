@@ -14,6 +14,7 @@ namespace JET.Server.World
             RegisterNetworkInteractionObjects();
 
             InitializeVariables();
+            //gameworld interface Singleton<GInterface56>.Create(gameWorld);
         }
 
 
