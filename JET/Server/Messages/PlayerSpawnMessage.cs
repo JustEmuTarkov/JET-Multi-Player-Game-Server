@@ -139,6 +139,7 @@ namespace JET.Server.Messages
             var server = Singleton<ServerInstance>.Instance;
             var mapPoints = GameUtils.GetMapPoints(profile.Info.Side == EPlayerSide.Savage ? ESideType.Savage : ESideType.Pmc, server.MapLootSettings.Id);
             spawnMessage.PlayerProfile.Info.EntryPoint = mapPoints.EntryPoints[0].Name; // this is not exact value, just random
+            spawnMessage.Position = mapPoints.EntryPoints[0].PositionOnMap;
 
             spawnMessage.PlayerProfile.Inventory = default;
             spawnMessage.Inventory = profile.Inventory;

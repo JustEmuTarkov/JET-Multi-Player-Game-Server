@@ -3,6 +3,7 @@ using System.Reflection;
 using Comfort.Common;
 using EFT;
 using EFT.UI.Screens;
+using JET.Server.Utils;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -107,12 +108,14 @@ namespace JET.Utilities.Reflection
             var locationInfo = GClass512.Load<TextAsset>("LocalLoot/" + locationId + num).text
                 .ParseJsonTo<GClass782.GClass783>();
             var localLoot = locationInfo.Location.ParseJsonTo<GClass782.GClass784>();
+            var mapPoints = GameUtils.GetMapPoints(ESideType.Pmc, locationId);
+            var entryPoint = mapPoints.EntryPoints[0].Name;
 
             PrivateValueAccessor.SetPrivateFieldValue(app.GetType(), "_localGame", app, true);
 
             try
             {
-                methodInfo.Invoke(app, new object[] {localLoot, timeAndWeather, "factory4_day"});
+                methodInfo.Invoke(app, new object[] {localLoot, timeAndWeather, entryPoint});
                 return localLoot;
             }
             catch (Exception e)
