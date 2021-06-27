@@ -1,5 +1,5 @@
-﻿using System;
-using EFT;
+﻿using EFT;
+using UnityEngine;
 
 namespace JET.Server.Player
 {
@@ -7,7 +7,7 @@ namespace JET.Server.Player
     {
         protected override void ShowStatNotification(LocalizationKey localizationKey1, LocalizationKey localizationKey2, int value)
         {
-            Console.WriteLine("JET.Server.Player.StatisticsManager.ShowStatNotification: implement meeee!!!");
+            Debug.LogError("JET.Server.Player.StatisticsManager.ShowStatNotification: implement meeee!!!");
         }
     }
 }

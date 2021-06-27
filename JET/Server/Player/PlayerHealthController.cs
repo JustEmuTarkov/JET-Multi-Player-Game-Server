@@ -1,6 +1,6 @@
-﻿using System;
-using EFT;
+﻿using EFT;
 using EFT.InventoryLogic;
+using UnityEngine;
 
 namespace JET.Server.Player
 {
@@ -12,12 +12,12 @@ namespace JET.Server.Player
 
         public override void ApplyItem(Item item, EBodyPart bodyPart, float? amount = null)
         {
-            Console.WriteLine("JET.Server.Player.PlayerHealthController.PlayerHealthController.ApplyItem: not implemented");
+            Debug.LogError("JET.Server.Player.PlayerHealthController.PlayerHealthController.ApplyItem: not implemented");
         }
 
         public override void CancelApplyingItem()
         {
-            Console.WriteLine("JET.Server.Player.PlayerHealthController.PlayerHealthController.CancelApplyingItem: not implemented");
+            Debug.LogError("JET.Server.Player.PlayerHealthController.PlayerHealthController.CancelApplyingItem: not implemented");
         }
 
         protected override bool _sendNetworkSyncPackets => true;

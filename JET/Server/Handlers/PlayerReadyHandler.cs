@@ -1,6 +1,6 @@
-﻿using System;
-using Comfort.Common;
+﻿using Comfort.Common;
 using JET.Server.Messages;
+using UnityEngine;
 using UnityEngine.Networking;
 
 #pragma warning disable 618
@@ -22,7 +22,7 @@ namespace JET.Server.Handlers
                 someBundleMessage
             );
 
-            Console.WriteLine($"OnPlayerReady received, conn id is: {message.conn.connectionId}");
+            Debug.LogError($"OnPlayerReady received, conn id is: {message.conn.connectionId}");
         }
     }
 }

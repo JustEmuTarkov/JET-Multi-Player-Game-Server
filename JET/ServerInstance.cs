@@ -27,7 +27,7 @@ namespace JET
         public const int MaxConnections = 20;
         public const int MaxPlayersOnMap = 200;
         public GClass1345[] WeatherNodes;
-        public GClass782.GClass784 LootSettings;
+        public GClass782.GClass784 MapLootSettings;
 
         public ulong LocalIndex { get; set; }
         public double LocalTime { get; private set; }
@@ -43,7 +43,7 @@ namespace JET
             Singleton<ServerInstance>.Create(this);
             ClientAppUtils.EnableLogs(); // enable debug logs in game
             WeatherNodes = GClass1345.GetRandomTestWeatherNodes();
-            Console.WriteLine("ServerInstance.Start");
+            Debug.LogError("ServerInstance.Start");
         }
 
         public void FixedUpdate()
@@ -54,17 +54,17 @@ namespace JET
 
             if (!RaidStarted && LocalGameUtils.IsGameReadyForStart())
             {
-                Console.WriteLine("ServerInstance.FixedUpdate: starting MP server");
+                Debug.LogError("ServerInstance.FixedUpdate: starting MP server");
 
                 string locationId = "factory4_day";
                 var lootSettings = LocalGameUtils.StartOfflineRaid(locationId);
                 if (lootSettings == null)
                 {
-                    Console.WriteLine("ServerInstance.FixedUpdate: unable to start mp server");
+                    Debug.LogError("ServerInstance.FixedUpdate: unable to start mp server");
                     return;
                 }
 
-                LootSettings = lootSettings;
+                MapLootSettings = lootSettings;
                 RaidStarted = true;
             }
 
@@ -83,17 +83,17 @@ namespace JET
             if (!NetworkServer.active)
             {
                 networkPort = Port;
-                networkAddress = "127.0.0.1";
+                networkAddress = "0.0.0.0";
 
                 var started = StartServer(Config.GetHostConfiguration(), MaxConnections);
                 if (!started)
                 {
-                    Console.WriteLine(
+                    Debug.LogError(
                         "ServerInstance.FixedUpdate: error occurred while starting UDP server on port " + Port);
                     return;
                 }
 
-                Console.WriteLine(
+                Debug.LogError(
                     "ServerInstance.FixedUpdate: UDP server started on port " + Port);
                 ServerHandlers.RegisterServerHandlers();
             }
@@ -103,7 +103,7 @@ namespace JET
                 return;
 
             var levelPhysicsSettings = GClass494.GetAllComponentsOfType<LevelPhysicsSettings>(false);
-            Console.WriteLine($"LevelPhysicsSettings count: {levelPhysicsSettings.Count}");
+            Debug.LogError($"LevelPhysicsSettings count: {levelPhysicsSettings.Count}");
             GClass862.SetupPositionQuantizer(levelPhysicsSettings.ToArray()[0].GetGlobalBounds());
 
             //game.PlayerOwner.Player.GClass1652_0.SetExamined(true); // !!!!
@@ -113,7 +113,7 @@ namespace JET
 
         public override void OnServerReady(NetworkConnection conn)
         {
-            Console.WriteLine("OnSceneReady called on client");
+            Debug.LogError("OnSceneReady called on client");
             SceneReadyHandler.OnSceneReady(conn);
             base.OnServerReady(conn);
         }

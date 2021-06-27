@@ -23,7 +23,7 @@ namespace JET.Server.Player
             var createPlayerInfo = PrivateMethodAccessor.GetPrivateStaticGenericMethodByType<ServerPlayer>(typeof(NetworkPlayer), "smethod_2");
             if (createPlayerInfo == null)
             {
-                Console.WriteLine(
+                Debug.LogError(
                     "JET.Server.Player.ServerPlayer.Create: ERROR!!! createPlayerInfo is null\n");
                 return null;
             }
@@ -67,9 +67,9 @@ namespace JET.Server.Player
             }
             catch (Exception e)
             {
-                Console.WriteLine(
+                Debug.LogError(
                     "JET.Server.Player.ServerPlayer.Create: error occurred while creating player instance!!!");
-                Console.WriteLine(e);
+                Debug.LogError(e);
             }
 
             return null;
@@ -84,9 +84,11 @@ namespace JET.Server.Player
                 GClass1168.PoolsCategory.Raid, GClass1168.AssemblyType.Local, profile.GetAllPrefabPaths().ToArray(), GClass2146.General
             );
 
+            var healthController = new PlayerHealthController(profile.Health, _inventoryController, profile.Skills);
+
             await Init(Quaternion.identity, "Player", EPointOfView.ThirdPerson, profile,
                 new Player.PlayerInventoryController(this, profile, 0),
-                new PlayerHealthController(profile.Health, this._inventoryController, profile.Skills),
+                healthController,
                 new StatisticsManager(), null, new GClass909()
             );
 
@@ -108,7 +110,7 @@ namespace JET.Server.Player
             _handsController = EmptyHandsController.smethod_5<ObservedEmptyHandsController>(this);
             _handsController.Spawn(1f, () => { });
 
-            Location = Singleton<ServerInstance>.Instance.LootSettings._Id;
+            Location = Singleton<ServerInstance>.Instance.MapLootSettings._Id;
         }
 
         public override GClass423 CreatePhysical()
@@ -124,7 +126,7 @@ namespace JET.Server.Player
             LastDeltaTime = deltaTime;
             if (Mathf.Approximately(deltaTime, 0f))
             {
-                Console.WriteLine("[ServerPlayer.ManualUpdate] deltaTime = {0}", deltaTime);
+                Debug.LogError("[ServerPlayer.ManualUpdate] ");
                 return;
             }
 
@@ -145,7 +147,7 @@ namespace JET.Server.Player
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Debug.LogError(e);
             }
         }
 
@@ -157,7 +159,7 @@ namespace JET.Server.Player
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Debug.LogError(e);
             }
         }
 

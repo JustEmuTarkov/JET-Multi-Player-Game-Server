@@ -26,9 +26,9 @@ namespace JET.Server.Session
 
         private void Start()
         {
-            Console.WriteLine($"NetworkGameSession started, con id: {Connection.connectionId}");
-            Console.WriteLine($"NetworkGameSession started, channel id: {chanelId}");
-            Console.WriteLine($"NetworkGameSession started, channel index: {chanelIndex}");
+            Debug.LogError($"NetworkGameSession started, con id: {Connection.connectionId}");
+            Debug.LogError($"NetworkGameSession started, channel id: {chanelId}");
+            Debug.LogError($"NetworkGameSession started, channel index: {chanelIndex}");
         }
 
         private void FixedUpdate()
@@ -80,7 +80,7 @@ namespace JET.Server.Session
                     gameSession.SpawnQueue.Enqueue(spawnMessage);
                 }
 
-                Console.WriteLine($"Player teleport SpawnPosition {spawnMessage.SpawnPosition}");
+                Debug.LogError($"Player teleport SpawnPosition {spawnMessage.SpawnPosition}");
 
                 player.Teleport(spawnMessage.SpawnPosition);
                 playerSpawnIsSent = true;
@@ -123,13 +123,13 @@ namespace JET.Server.Session
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Debug.LogError(e);
             }
         }
 
         protected override void CmdSpawnConfirm(int spawnedChannel)
         {
-            Console.WriteLine(
+            Debug.LogError(
                 $"CmdSpawnConfirm from client {Connection.connectionId} " +
                 $"Spawned with channelId {spawnedChannel} " +
                 $"Self channelId {chanelId}"

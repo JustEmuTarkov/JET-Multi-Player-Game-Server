@@ -47,7 +47,7 @@ namespace JET.Server.Session
         [Command]
         protected virtual void CmdSpawn()
         {
-            Console.WriteLine("Call command CmdSpawn from client.");
+            Debug.LogError("JET.Server.SessionCall.AbstractGameSession: Call command CmdSpawn from client.");
 
             sessionIsSpawned = true;
         }
@@ -56,56 +56,56 @@ namespace JET.Server.Session
         [Command]
         protected virtual void CmdRespawn()
         {
-            Console.WriteLine("Call command CmdRespawn from client.");
+            Debug.LogError("JET.Server.SessionCall.AbstractGameSession: Call command CmdRespawn from client.");
         }
 
         // Token: 0x06004776 RID: 18294 RVA: 0x000A29D7 File Offset: 0x000A0BD7
         [Command]
         protected virtual void CmdStartGame()
         {
-            Console.WriteLine("Call command CmdStartGame from client.");
+            Debug.LogError("JET.Server.SessionCall.AbstractGameSession: Call command CmdStartGame from client.");
         }
 
         // Token: 0x06004777 RID: 18295 RVA: 0x000A29D7 File Offset: 0x000A0BD7
         [Command]
         protected virtual void CmdStartGameAfterTeleport()
         {
-            Console.WriteLine("Call command CmdStartGameAfterTeleport from client.");
+            Debug.LogError("JET.Server.SessionCall.AbstractGameSession: Call command CmdStartGameAfterTeleport from client.");
         }
 
         // Token: 0x06004778 RID: 18296 RVA: 0x000A29D7 File Offset: 0x000A0BD7
         [Command]
         protected virtual void CmdRestartGameInitiate()
         {
-            Console.WriteLine("Call command CmdRestartGameInitiate from client.");
+            Debug.LogError("JET.Server.SessionCall.AbstractGameSession: Call command CmdRestartGameInitiate from client.");
         }
 
         // Token: 0x06004779 RID: 18297 RVA: 0x000A29D7 File Offset: 0x000A0BD7
         [Command]
         protected virtual void CmdRestartGame()
         {
-            Console.WriteLine("Call command CmdRestartGame from client.");
+            Debug.LogError("JET.Server.SessionCall.AbstractGameSession: Call command CmdRestartGame from client.");
         }
 
         // Token: 0x0600477A RID: 18298 RVA: 0x000A29D7 File Offset: 0x000A0BD7
         [Command]
         protected virtual void CmdGameStarted()
         {
-            Console.WriteLine("Call command CmdGameStarted from client.");
+            Debug.LogError("JET.Server.SessionCall.AbstractGameSession: Call command CmdGameStarted from client.");
         }
 
         // Token: 0x0600477B RID: 18299 RVA: 0x000A29D7 File Offset: 0x000A0BD7
         [Command]
         protected virtual void CmdStopGame()
         {
-            Console.WriteLine("Call command CmdStopGame from client.");
+            Debug.LogError("JET.Server.SessionCall.AbstractGameSession: Call command CmdStopGame from client.");
         }
 
         // Token: 0x0600477C RID: 18300 RVA: 0x000A29D7 File Offset: 0x000A0BD7
         [Command]
         protected virtual void CmdSyncGameTime()
         {
-            Console.WriteLine("Call command CmdSyncGameTime from client.");
+            Debug.LogError("JET.Server.SessionCall.AbstractGameSession: Call command CmdSyncGameTime from client.");
             
             RpcSyncGameTime(DateTime.UtcNow.ToBinary());
             gameSyncTimeIsSent = true;
@@ -115,49 +115,49 @@ namespace JET.Server.Session
         [Command]
         protected virtual void CmdDevelopRequestBot()
         {
-            Console.WriteLine("Call command CmdDevelopRequestBot from client.");
+            Debug.LogError("JET.Server.SessionCall.AbstractGameSession: Call command CmdDevelopRequestBot from client.");
         }
 
         // Token: 0x0600477E RID: 18302 RVA: 0x000A29D7 File Offset: 0x000A0BD7
         [Command]
         protected virtual void CmdDevelopmentSpawnBotRequest(EPlayerSide side)
         {
-            Console.WriteLine("Call command CmdDevelopmentSpawnBotRequest from client.");
+            Debug.LogError("JET.Server.SessionCall.AbstractGameSession: Call command CmdDevelopmentSpawnBotRequest from client.");
         }
 
         // Token: 0x0600477F RID: 18303 RVA: 0x000A29D7 File Offset: 0x000A0BD7
         [Command]
         protected virtual void CmdDevelopmentSpawnBotOnServer(EPlayerSide side)
         {
-            Console.WriteLine("Call command CmdDevelopmentSpawnBotOnServer from client.");
+            Debug.LogError("JET.Server.SessionCall.AbstractGameSession: Call command CmdDevelopmentSpawnBotOnServer from client.");
         }
 
         // Token: 0x06004780 RID: 18304 RVA: 0x000A29D7 File Offset: 0x000A0BD7
         [Command]
         protected virtual void CmdDevelopmentSpawnBotOnClient(EPlayerSide side, int instanceId)
         {
-            Console.WriteLine("Call command CmdDevelopmentSpawnBotOnClient from client.");
+            Debug.LogError("JET.Server.SessionCall.AbstractGameSession: Call command CmdDevelopmentSpawnBotOnClient from client.");
         }
 
         // Token: 0x06004781 RID: 18305 RVA: 0x000A29D7 File Offset: 0x000A0BD7
         [Command]
         protected virtual void CmdDisconnectAcceptedOnClient()
         {
-            Console.WriteLine("Call command CmdDisconnectAcceptedOnClient from client.");
+            Debug.LogError("JET.Server.SessionCall.AbstractGameSession: Call command CmdDisconnectAcceptedOnClient from client.");
         }
 
         // Token: 0x06004782 RID: 18306 RVA: 0x000A29D7 File Offset: 0x000A0BD7
         [Command]
         protected virtual void CmdWorldSpawnConfirm()
         {
-            Console.WriteLine("Call command CmdWorldSpawnConfirm from client.");
+            Debug.LogError("JET.Server.SessionCall.AbstractGameSession: Call command CmdWorldSpawnConfirm from client.");
         }
 
         // Token: 0x06004783 RID: 18307 RVA: 0x000A29D7 File Offset: 0x000A0BD7
         [Command]
         protected virtual void CmdSpawnConfirm(int playerId)
         {
-            Console.WriteLine("Call command CmdSpawnConfirm from client.");
+            Debug.LogError("JET.Server.SessionCall.AbstractGameSession: Call command CmdSpawnConfirm from client.");
         }
 
         // Token: 0x060047C2 RID: 18370 RVA: 0x0024C6C8 File Offset: 0x0024A8C8
@@ -380,20 +380,20 @@ namespace JET.Server.Session
             RegisterCommandDelegate(typeof(AbstractGameSession), ID_CmdDisconnectAcceptedOnClient, /*CmdDisconnectAcceptedOnClient*/(behaviour, reader) => ((AbstractGameSession) behaviour).CmdDisconnectAcceptedOnClient());
             RegisterCommandDelegate(typeof(AbstractGameSession), ID_CmdWorldSpawnConfirm, /*CmdWorldSpawnConfirm*/(behaviour, reader) => ((AbstractGameSession) behaviour).CmdWorldSpawnConfirm());
             RegisterCommandDelegate(typeof(AbstractGameSession), ID_CmdSpawnConfirm, /*CmdSpawnConfirm*/(behaviour, reader) => ((AbstractGameSession) behaviour).CmdSpawnConfirm((int) reader.ReadPackedUInt32()));
-            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcGameSpawned, /*CallRpcGameSpawned*/(behaviour, reader) => {Console.WriteLine("CallRpcGameSpawned");});
-            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcGameMatching, /*CallRpcGameMatching*/(behaviour, reader) => {Console.WriteLine("CallRpcGameMatching");});
-            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcGameStarting, /*CallRpcGameStarting*/(behaviour, reader) => {Console.WriteLine("CallRpcGameStarting");});
-            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcGameStartingWithTeleport, /*CallRpcGameStartingWithTeleport*/(behaviour, reader) => {Console.WriteLine("CallRpcGameStartingWithTeleport");});
-            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcGameStarted, /*CallRpcGameStarted*/(behaviour, reader) => {Console.WriteLine("CallRpcGameStarted");});
-            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcGameRestarting, /*CallRpcGameRestarting*/(behaviour, reader) => {Console.WriteLine("CallRpcGameRestarting");});
-            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcGameRestarted, /*CallRpcGameRestarted*/(behaviour, reader) => {Console.WriteLine("CallRpcGameRestarted");});
-            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcGameStopping, /*CallRpcGameStopping*/(behaviour, reader) => {Console.WriteLine("CallRpcGameStopping");});
-            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcGameStopped, /*CallRpcGameStopped*/(behaviour, reader) => {Console.WriteLine("CallRpcGameStopped");});
-            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcSyncGameTime, /*CallRpcSyncGameTime*/(behaviour, reader) => {Console.WriteLine("CallRpcSyncGameTime");});
-            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcDevelopSendBotData, /*CallRpcDevelopSendBotData*/(behaviour, reader) => {Console.WriteLine("CallRpcDevelopSendBotData");});
-            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcDevelopmentSpawnBotResponse, /*CallRpcDevelopmentSpawnBotResponse*/(behaviour, reader) => {Console.WriteLine("CallRpcDevelopmentSpawnBotResponse");});
-            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcSoftStopNotification, /*CallRpcSoftStopNotification*/(behaviour, reader) => {Console.WriteLine("CallRpcSoftStopNotification");});
-            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcStartDisconnectionProcedure, /*CallRpcStartDisconnectionProcedure*/(behaviour, reader) => {Console.WriteLine("CallRpcStartDisconnectionProcedure");});
+            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcGameSpawned, /*CallRpcGameSpawned*/(behaviour, reader) => {Debug.LogError("JET.Server.SessionCall.AbstractGameSession: CallRpcGameSpawned");});
+            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcGameMatching, /*CallRpcGameMatching*/(behaviour, reader) => {Debug.LogError("JET.Server.SessionCall.AbstractGameSession: CallRpcGameMatching");});
+            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcGameStarting, /*CallRpcGameStarting*/(behaviour, reader) => {Debug.LogError("JET.Server.SessionCall.AbstractGameSession: CallRpcGameStarting");});
+            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcGameStartingWithTeleport, /*CallRpcGameStartingWithTeleport*/(behaviour, reader) => {Debug.LogError("JET.Server.SessionCall.AbstractGameSession: CallRpcGameStartingWithTeleport");});
+            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcGameStarted, /*CallRpcGameStarted*/(behaviour, reader) => {Debug.LogError("JET.Server.SessionCall.AbstractGameSession: CallRpcGameStarted");});
+            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcGameRestarting, /*CallRpcGameRestarting*/(behaviour, reader) => {Debug.LogError("JET.Server.SessionCall.AbstractGameSession: CallRpcGameRestarting");});
+            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcGameRestarted, /*CallRpcGameRestarted*/(behaviour, reader) => {Debug.LogError("JET.Server.SessionCall.AbstractGameSession: CallRpcGameRestarted");});
+            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcGameStopping, /*CallRpcGameStopping*/(behaviour, reader) => {Debug.LogError("JET.Server.SessionCall.AbstractGameSession: CallRpcGameStopping");});
+            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcGameStopped, /*CallRpcGameStopped*/(behaviour, reader) => {Debug.LogError("JET.Server.SessionCall.AbstractGameSession: CallRpcGameStopped");});
+            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcSyncGameTime, /*CallRpcSyncGameTime*/(behaviour, reader) => {Debug.LogError("JET.Server.SessionCall.AbstractGameSession: CallRpcSyncGameTime");});
+            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcDevelopSendBotData, /*CallRpcDevelopSendBotData*/(behaviour, reader) => {Debug.LogError("JET.Server.SessionCall.AbstractGameSession: CallRpcDevelopSendBotData");});
+            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcDevelopmentSpawnBotResponse, /*CallRpcDevelopmentSpawnBotResponse*/(behaviour, reader) => {Debug.LogError("JET.Server.SessionCall.AbstractGameSession: CallRpcDevelopmentSpawnBotResponse");});
+            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcSoftStopNotification, /*CallRpcSoftStopNotification*/(behaviour, reader) => {Debug.LogError("JET.Server.SessionCall.AbstractGameSession: CallRpcSoftStopNotification");});
+            RegisterRpcDelegate(typeof(AbstractGameSession), ID_CallRpcStartDisconnectionProcedure, /*CallRpcStartDisconnectionProcedure*/(behaviour, reader) => {Debug.LogError("JET.Server.SessionCall.AbstractGameSession: CallRpcStartDisconnectionProcedure");});
             NetworkCRC.RegisterBehaviour("AbstractGameSession", 0);
         }
 

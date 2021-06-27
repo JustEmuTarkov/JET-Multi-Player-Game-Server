@@ -1,7 +1,7 @@
-﻿using System;
-using Comfort.Common;
+﻿using Comfort.Common;
 using JET.Server.Messages;
 using JET.Server.Session;
+using UnityEngine;
 using UnityEngine.Networking;
 
 #pragma warning disable 618
@@ -16,7 +16,7 @@ namespace JET.Server.Handlers
             var reportProgressMessage = networkMessage.ReadMessage<LoadBundlesStatusMessage>();
             int taskId = reportProgressMessage.TaskId;
 
-            Console.WriteLine(
+            Debug.LogError(
                 $" OnReportProgressLoading received, Profile is: {reportProgressMessage.ProfileId}," +
                 $" OperationId is: {reportProgressMessage.TaskId}," +
                 $" ProgressValue is: {reportProgressMessage.ProgressValue}"
@@ -42,11 +42,11 @@ namespace JET.Server.Handlers
             var serverInstance = Singleton<ServerInstance>.Instance;
             if (!serverInstance.NetworkClients.TryGetValue(connection.connectionId, out var player))
             {
-                Console.WriteLine($"ERROR!!! Session with id {connection.connectionId} is not found in gameSessions");
+                Debug.LogError($"ERROR!!! Session with id {connection.connectionId} is not found in gameSessions");
                 return;
             }
 
-            Console.WriteLine($"SpawnPlayerObject with Client Authority for id {connection.connectionId}");
+            Debug.LogError($"SpawnPlayerObject with Client Authority for id {connection.connectionId}");
 
             NetworkServer.SpawnWithClientAuthority(
                 player.Session.gameObject,

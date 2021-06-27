@@ -1,10 +1,12 @@
 ﻿using System;
 using System.IO;
+using Comfort.Common;
 using ComponentAce.Compression.Libs.zlib;
 using EFT;
 using EFT.InventoryLogic;
 using JET.Server.Player;
 using JET.Server.Trash;
+using JET.Server.Utils;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -82,7 +84,7 @@ namespace JET.Server.Messages
                 switch (Econtroller)
                 {
                     case EController.None:
-                        Console.WriteLine(
+                        Debug.LogError(
                             "JET.Server.Messages.PlayerSpawnMessage.Serialize: WARNING! no hands controllers");
                         return;
                     case EController.Empty:
@@ -133,6 +135,10 @@ namespace JET.Server.Messages
                 ChannelId = (byte) channelId, PlayerID = channelId, ChannelIndex = (byte) channelId,
                 PlayerProfile = profile.Clone()
             };
+
+            var server = Singleton<ServerInstance>.Instance;
+            var mapPoints = GameUtils.GetMapPoints(profile.Info.Side == EPlayerSide.Savage ? ESideType.Savage : ESideType.Pmc, server.MapLootSettings.Id);
+            spawnMessage.PlayerProfile.Info.EntryPoint = mapPoints.EntryPoints[0].Name; // this is not exact value, just random
 
             spawnMessage.PlayerProfile.Inventory = default;
             spawnMessage.Inventory = profile.Inventory;
