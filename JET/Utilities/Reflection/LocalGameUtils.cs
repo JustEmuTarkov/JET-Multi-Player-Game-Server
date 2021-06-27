@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Reflection;
 using Comfort.Common;
-using UnityEngine;
 using EFT;
-using EFT.UI;
 using EFT.UI.Screens;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace JET.Utilities.Reflection
@@ -85,20 +84,20 @@ namespace JET.Utilities.Reflection
             var app = ClientAppUtils.GetMainApp();
             if (app == null)
             {
-                Console.WriteLine("JET.Utilities.Reflection.LocalGameUtils.StartOfflineRaid: ERROR!!! app is empty");
+                Debug.LogError("JET.Utilities.Reflection.LocalGameUtils.StartOfflineRaid: ERROR!!! app is empty");
                 return null;
             }
 
             if (typeof(MainApplication) != app.GetType())
             {
-                Console.WriteLine("JET.Utilities.Reflection.LocalGameUtils.StartOfflineRaid: ERROR!!! instance of app is not equal to MainApplication!");
+                Debug.LogError("JET.Utilities.Reflection.LocalGameUtils.StartOfflineRaid: ERROR!!! instance of app is not equal to MainApplication!");
                 return null;
             }
 
             var methodInfo = PrivateMethodAccessor.GetPrivateMethodByType(app.GetType(), "method_31");
             if (methodInfo == null)
             {
-                Console.WriteLine("JET.Utilities.Reflection.LocalGameUtils.StartOfflineRaid: ERROR!!! method_31 info is empty");
+                Debug.LogError("JET.Utilities.Reflection.LocalGameUtils.StartOfflineRaid: ERROR!!! method_31 info is empty");
                 return null;
             }
 
@@ -118,7 +117,8 @@ namespace JET.Utilities.Reflection
             }
             catch (Exception e)
             {
-                Console.WriteLine("JET.Utilities.Reflection.LocalGameUtils.StartOfflineRaid: ERROR!!! methodInfo.Invoke \r\n {0}", e);
+                Debug.LogError("JET.Utilities.Reflection.LocalGameUtils.StartOfflineRaid: ERROR!!! methodInfo.Invoke ");
+                Debug.LogError(e);
                 throw;
             }
 
