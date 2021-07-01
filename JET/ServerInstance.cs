@@ -10,6 +10,7 @@ using JET.Server.Connection;
 using JET.Server.Handlers;
 using JET.Server.Player;
 using JET.Server.Session;
+using JET.Server.Utils;
 using JET.Server.World;
 using JET.Utilities.Reflection;
 using UnityEngine;
@@ -109,6 +110,9 @@ namespace JET
             //game.PlayerOwner.Player.GClass1652_0.SetExamined(true); // !!!!
             game.BotsController.DestroyInfo(game.PlayerOwner.Player);
             Singleton<GameWorld>.Instance.UnregisterPlayer(game.PlayerOwner.Player);
+
+            var mapPoints = GameUtils.GetMapPoints(ESideType.Pmc, MapLootSettings._Id);
+            game.PlayerOwner.Player.Teleport(mapPoints.EntryPoints[0].PositionOnMap);
         }
 
         public override void OnServerReady(NetworkConnection conn)
