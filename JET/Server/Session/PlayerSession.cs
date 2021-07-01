@@ -26,9 +26,9 @@ namespace JET.Server.Session
 
         private void Start()
         {
-            Debug.LogError($"NetworkGameSession started, con id: {Connection.connectionId}");
-            Debug.LogError($"NetworkGameSession started, channel id: {chanelId}");
-            Debug.LogError($"NetworkGameSession started, channel index: {chanelIndex}");
+            Debug.Log($"NetworkGameSession started, con id: {Connection.connectionId}");
+            Debug.Log($"NetworkGameSession started, channel id: {chanelId}");
+            Debug.Log($"NetworkGameSession started, channel index: {chanelIndex}");
         }
 
         private void FixedUpdate()
