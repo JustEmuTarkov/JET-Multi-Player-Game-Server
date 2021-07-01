@@ -15,6 +15,7 @@ namespace JET.Server.Session
     {
         public bool gameSyncTimeIsSent;
         public bool worldMessageIsSent;
+        public bool worldIsSpawned;
         public bool subWorldMessageIsSent;
         public bool playerSpawnIsSent;
         public bool gameSpawnedIsSent;
@@ -107,7 +108,7 @@ namespace JET.Server.Session
         {
             Debug.LogError("JET.Server.SessionCall.AbstractGameSession: Call command CmdSyncGameTime from client.");
             
-            RpcSyncGameTime(DateTime.UtcNow.ToBinary());
+            RpcSyncGameTime(GClass817.UtcNow.ToBinary());
             gameSyncTimeIsSent = true;
         }
 
@@ -151,6 +152,7 @@ namespace JET.Server.Session
         protected virtual void CmdWorldSpawnConfirm()
         {
             Debug.LogError("JET.Server.SessionCall.AbstractGameSession: Call command CmdWorldSpawnConfirm from client.");
+            worldIsSpawned = true;
         }
 
         // Token: 0x06004783 RID: 18307 RVA: 0x000A29D7 File Offset: 0x000A0BD7
