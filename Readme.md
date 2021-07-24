@@ -9,7 +9,7 @@ Client-side runtime patches with usage of harmony and reflection to alter the cl
 ## Requirements
 - Visual Studio 2017 or newer
 - .NET Framework 4.6.1 or newer
-- E.F.T. 0.12.7.9767
+- E.F.T. 12.9.10988
 
 ## Setup
 All dependencies are provided, no additional setup required.
