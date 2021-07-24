@@ -18,6 +18,33 @@ using UnityEngine.Networking;
 
 #pragma warning disable 618
 
+/*
+ Other MessageID's
+
+
+
+Spawn:
+151 -> WorldSpawn
+152 -> WorldUnspawn
+153 -> SubWorldSpawn
+154 -> SubWorldUnspawn
+155 -> PlayerSpawn
+156 -> PlayerUnspawn
+157 -> ObserverSpawn
+158 -> ObserverUnspawn
+160 -> DeathInventorySync
+
+165 -> some strange random bullshit with data byte and its int id
+167 -> some strange random bullshit with data byte and its int id
+168 -> IBattlEyeClientRequestHandler.OnSendPacket
+
+ */
+
+
+
+
+
+
 namespace JET
 {
     public class ServerInstance : NetworkManager, GInterface62
@@ -29,7 +56,7 @@ namespace JET
         public const int MaxPlayersOnMap = 200;
         public GClass1345[] WeatherNodes;
         public GClass782.GClass784 MapLootSettings;
-
+        internal static ServerWorld serverWorld { get; private set; }
         public ulong LocalIndex { get; set; }
         public double LocalTime { get; private set; }
         public bool RaidStarted { get; private set; }
@@ -66,6 +93,10 @@ namespace JET
                 }
 
                 MapLootSettings = lootSettings;
+
+                var lootResources = lootSettings.Loot.Select(x => x.Item.Prefab);
+                AllPrefabs.AddRange(lootResources);
+
                 RaidStarted = true;
             }
 
@@ -75,16 +106,22 @@ namespace JET
             var gameWorld = Singleton<GameWorld>.Instance;
             if (gameWorld == null || gameWorld.AllLoot.Count <= 0)
                 return;
-
-            World.smethod_0<ServerWorld>(null, null, false);
-
-            WorldSpawned = true;
-
+            try
+            {
+                serverWorld = World.smethod_0<ServerWorld>(null, null, false);
+                WorldSpawned = true;
+            }
+            catch (Exception exception) {
+                Debug.LogError(
+                        "ServerInstance.FixedUpdate: " + exception.Message);
+                Debug.LogError(exception.StackTrace);
+                WorldSpawned = false;
+            }
 
             if (!NetworkServer.active)
             {
                 networkPort = Port;
-                networkAddress = "0.0.0.0";
+                networkAddress = "127.0.0.1";
 
                 var started = StartServer(Config.GetHostConfiguration(), MaxConnections);
                 if (!started)
@@ -112,7 +149,14 @@ namespace JET
             Singleton<GameWorld>.Instance.UnregisterPlayer(game.PlayerOwner.Player);
 
             var mapPoints = GameUtils.GetMapPoints(ESideType.Pmc, MapLootSettings._Id);
-            game.PlayerOwner.Player.Teleport(mapPoints.EntryPoints[0].PositionOnMap);
+            try
+            {
+                game.PlayerOwner.Player.Teleport(mapPoints.EntryPoints[0].PositionOnMap);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
         }
 
         public override void OnServerReady(NetworkConnection conn)

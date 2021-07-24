@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Comfort.Common;
 using EFT;
 using JET.Server.Messages;
@@ -59,13 +60,18 @@ namespace JET.Server.Session
 
             if (worldMessageIsSent && !subWorldMessageIsSent)
             {
-                var subWorldSpawnMessage = new SubWorldSpawnMessage();
-                Connection.Send(SubWorldSpawnMessage.MessageID, subWorldSpawnMessage);
+                var world = Singleton<ServerWorld>.Instance;
+
+                foreach (var subWorldSpawnMessage in world.SubWorldList.Select(subWorld => new SubWorldSpawnMessage {SubWorld = subWorld}))
+                {
+                    Connection.Send(SubWorldSpawnMessage.MessageID, subWorldSpawnMessage);
+                }
+
                 subWorldMessageIsSent = true;
                 return;
             }
 
-            if (subWorldMessageIsSent && !playerSpawnIsSent)
+            if (worldIsSpawned && !playerSpawnIsSent)
             {
                 var serverInstance = Singleton<ServerInstance>.Instance;
 
@@ -119,7 +125,7 @@ namespace JET.Server.Session
                 var localGame = Singleton<AbstractGame>.Instance as BaseLocalGame<GamePlayerOwner>;
                 // ReSharper disable once Unity.NoNullPropagation
                 localGame?.AllPlayers.Add(player);
-               // LocalGameUtils.Get()?.BotsController.AddActivePLayer(player);
+                // LocalGameUtils.Get()?.BotsController.AddActivePLayer(player);
             }
             catch (Exception e)
             {

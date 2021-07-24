@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BitPacking;
 using Comfort.Common;
 using EFT;
@@ -8,6 +9,8 @@ namespace JET.Server.World
 {
     public class ServerWorld : ClientWorld
     {
+        public List<SubWorld> SubWorldList => list_1;
+        
         private void Awake()
         {
             Singleton<ServerWorld>.Create(this);

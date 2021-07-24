@@ -14,30 +14,12 @@ namespace JET.Server.Messages
 {
     public class SubWorldSpawnMessage : MessageBase
     {
+        public SubWorld SubWorld;
+
         public override void Serialize(NetworkWriter writer)
         {
-            writer.Write(true);
-
-            var jsonLootItems = Singleton<GameWorld>.Instance.GetJsonLootItems();
-            var lootItemArray = jsonLootItems.ToArray();
-            
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                using (BinaryWriter binaryWriter = new BinaryWriter(memoryStream))
-                {
-                    binaryWriter.Write(GClass970.SerializeLootData(lootItemArray));
-                    byte[] array = memoryStream.ToArray();
-                    byte[] buffer = SimpleZlib.CompressToBytes(array, array.Length, 9);
-                    writer.WriteBytesFull(buffer);
-                }
-            }
-
-            IEnumerable<Item> allItemsFromCollections = lootItemArray.Select(x => x.Item).OfType<IContainerCollection>().GetAllItemsFromCollections();
-            GClass740 gclass = new GClass740(new byte[ushort.MaxValue]);
-            GClass858.Serialize(gclass, allItemsFromCollections);
-            gclass.Flush();
-            writer.WriteBytesAndSize(gclass.Buffer, gclass.BytesWritten);
-
+            var mapLoot = Singleton<ServerInstance>.Instance.MapLootSettings.Loot.ToArray();
+            SubWorld.OnSerialize(writer, mapLoot);
 
             base.Serialize(writer);
         }

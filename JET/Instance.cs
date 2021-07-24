@@ -18,7 +18,7 @@ namespace JET
     [ObfuscationAttribute(Exclude = true)]
     public class Instance : MonoBehaviour
     {
-        private string Watermark = "10988 | JET";
+        private string Watermark = "10988 | JET Game Server";
         [ObfuscationAttribute(Exclude = true)]
         private void Start()
         {
