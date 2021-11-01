@@ -93,6 +93,7 @@ namespace JET.Server.Session
         protected virtual void CmdGameStarted()
         {
             Debug.LogError("JET.Server.SessionCall.AbstractGameSession: Call command CmdGameStarted from client.");
+            RpcSyncGameTime(GClass817.UtcNow.ToBinary());
         }
 
         // Token: 0x0600477B RID: 18299 RVA: 0x000A29D7 File Offset: 0x000A0BD7

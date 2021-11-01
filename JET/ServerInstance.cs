@@ -52,6 +52,7 @@ namespace JET
         public static int NextChannelId = 5;
 
         public const int Port = 5000;
+        public const string UDPServerAddress = "192.168.100.18";
         public const int MaxConnections = 20;
         public const int MaxPlayersOnMap = 200;
         public GClass1345[] WeatherNodes;
@@ -111,7 +112,8 @@ namespace JET
                 serverWorld = World.smethod_0<ServerWorld>(null, null, false);
                 WorldSpawned = true;
             }
-            catch (Exception exception) {
+            catch (Exception exception)
+            {
                 Debug.LogError(
                         "ServerInstance.FixedUpdate: " + exception.Message);
                 Debug.LogError(exception.StackTrace);
@@ -121,7 +123,7 @@ namespace JET
             if (!NetworkServer.active)
             {
                 networkPort = Port;
-                networkAddress = "127.0.0.1";
+                networkAddress = UDPServerAddress;
 
                 var started = StartServer(Config.GetHostConfiguration(), MaxConnections);
                 if (!started)

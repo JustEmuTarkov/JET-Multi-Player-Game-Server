@@ -9,6 +9,7 @@ using JET.Server.Trash;
 using JET.Server.Utils;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Collections.Generic;
 
 #pragma warning disable 618
 
@@ -20,7 +21,7 @@ namespace JET.Server.Messages
         public byte ChannelId = Byte.MinValue;
         public Vector3 Position = new Vector3(57.9f, 0.06f, 21.998f);
         public byte ChannelIndex = Byte.MinValue;
-        public bool IsAlive = false;
+        public bool IsAlive = true;
         public Vector3 SpawnPosition = new Vector3(57.9f, 0.1f, 22.0f);
         public Quaternion Rotation = new Quaternion(0.0f, 0.5f, 0.0f, 0.9f);
         public bool IsInPronePose = false;
@@ -76,8 +77,12 @@ namespace JET.Server.Messages
                 writer.Write(IsAlive);
                 writer.Write(ScavExfilMask);
 
+                var inv = new GClass1731(PlayerProfile, IdGeneratorId, true);
+                var skills = new GClass1143(EPlayerSide.Bear);
+                HealthController = new PlayerHealthController(PlayerProfile.Health, inv, skills);
+
                 var healthState = HealthController.SerializeState();
-                writer.WriteBytesAndSize(healthState, healthState.Length);
+                writer.SafeWriteSizeAndBytes(healthState, healthState.Length);
 
                 writer.Write(AnimationVariant);
                 writer.Write((byte) Econtroller);
@@ -117,8 +122,8 @@ namespace JET.Server.Messages
                             "JET.Server.Messages.PlayerSpawnMessage.Serialize: Invalid EController enum value:" +
                             Econtroller);
                 }
-
-                writer.Write((byte) SearchItemIds.Length);
+                //SearchItemIds - it is supposed to be 0, so lets just set length to 0 and leave SearchItemIds = null for now
+                writer.Write((byte) 0);
                 foreach (var t in SearchItemIds)
                 {
                     writer.Write(t);
@@ -142,6 +147,7 @@ namespace JET.Server.Messages
             spawnMessage.Position = mapPoints.EntryPoints[0].PositionOnMap;
 
             spawnMessage.PlayerProfile.Inventory = default;
+            spawnMessage.PlayerProfile.Inventory = profile.Inventory;
             spawnMessage.Inventory = profile.Inventory;
 
             return spawnMessage;

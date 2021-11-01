@@ -35,8 +35,8 @@ namespace JET
             Debug.LogError("Core: Loaded");
 
             new Settings(null, Config.BackendUrl);
-            
-           // PatcherUtil.Patch<EasyAssetsPatch>();
+
+            // PatcherUtil.Patch<EasyAssetsPatch>();
             //PatcherUtil.Patch<EasyBundlePatch>();
             //PatcherUtil.Patch<BundleLoadPatch>();
             Debug.LogError("RuntimeBundles: Loaded");
@@ -45,11 +45,12 @@ namespace JET
 
 
             //WatermarkOverrider();
-            
+
             gameObject.AddComponent<ServerInstance>();
         }
         EFT.UI.LocalizedText localizedText;
-        private void LateUpdate() {
+        private void LateUpdate()
+        {
             //WatermarkOverrider();
 
             // DISABLE ADD OFFER BUTTON IN FLEA MARKET
@@ -61,7 +62,8 @@ namespace JET
             //}
             //catch { }
         }
-        private void WatermarkOverrider() {
+        private void WatermarkOverrider()
+        {
             try
             {
                 if (localizedText == null)
@@ -72,9 +74,10 @@ namespace JET
             }
             catch { }
         }
-        private void OfflineModePatchRoutes(Offline.OfflineMode EnabledElements) {
-            
-            if(EnabledElements.OfflineLootPatch)
+        private void OfflineModePatchRoutes(Offline.OfflineMode EnabledElements)
+        {
+
+            if (EnabledElements.OfflineLootPatch)
                 PatcherUtil.Patch<OfflineLootPatch>();
             if (EnabledElements.OfflineSaveProfilePatch)
                 PatcherUtil.Patch<OfflineSaveProfilePatch>();
@@ -145,7 +148,7 @@ namespace JET
 
             if (EnabledElements.EndByTimerPatch)
                 PatcherUtil.Patch<EndByTimerPatch>();
-            if(EnabledElements.SpawnRandomizationPatch)
+            if (EnabledElements.SpawnRandomizationPatch)
                 PatcherUtil.Patch<SpawnRandomizationPatch>();
 
             Debug.LogError("SinglePlayer: Loaded");
