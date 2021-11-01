@@ -1,0 +1,1 @@
+start .\EFT_Client1\EscapeFromTarkov.exe -token=AID101118279826251437j2P -config={"BackendUrl":"https://192.168.100.18:6969","Version":"live"}
